@@ -1,0 +1,19 @@
+{
+  plans {
+    id
+    amount
+    description
+    items {
+      limit
+      quantity
+      product {
+        id
+      }
+    }
+    code
+    interval
+    privacy
+    notes
+    details
+  }
+}

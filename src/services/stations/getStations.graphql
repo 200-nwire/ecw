@@ -1,0 +1,36 @@
+query stations {
+  stations {
+    id
+    createdOn
+    name
+    location {
+      address
+      lat
+      long
+    }
+    email
+    phone
+    terminal
+    openingHours {
+      day
+      hours
+      order
+    }
+    managers {
+      profile {
+        email
+        name
+        phone
+      }
+    }
+    notification {
+      channel
+      title
+      body
+      enabled
+      imageUrl
+      landscapeImageUrl
+      validityHours
+    }
+  }
+}

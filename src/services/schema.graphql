@@ -1,0 +1,1204 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+interface Connection {
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+interface Edge {
+  cursor: Cursor!
+}
+
+union Payload =
+    GenericEventData
+  | ItemChangedData
+  | NoteAddedData
+  | PaymentData
+  | PaymentMethodData
+  | PlanChangedData
+  | StationChangedData
+  | SubscriptionCanceledData
+  | SubscriptionDeletedData
+  | Wash
+
+union User = Account | Manager
+
+type AbandonedConnection implements Connection {
+  edges: [AccountEdge]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Account {
+  company: Company
+  createdOn: Timestamp!
+  id: ID!
+  invites: [Invite]
+  modifiedOn: Timestamp!
+  paymentMethods: [PaymentMethod]!
+  points: Int!
+  value: Float
+  profile: Profile!
+  status: AccountStatus
+  subscriptions: [Subscr]!
+  totalPurchases: Int
+}
+
+type AccountConnection implements Connection {
+  edges: [AccountEdge]!
+  pageInfo: PageInfo!
+  summary: AccountsSummary
+  totalCount: Int!
+}
+
+type AccountEdge implements Edge {
+  cursor: Cursor!
+  node: Account!
+}
+
+type AccountsSummary {
+  totalAccounts: Totals
+  totalSubscriptions: Totals
+}
+
+type Address {
+  city: String
+  postalCode: String
+  street: String
+}
+
+type BillingDetails {
+  email: String
+  name: String
+  phone: String
+}
+
+type Breakdown {
+  active: Int
+  inactive: Int
+  month: Int
+  onHold: Int
+  washes: Int
+  year: Int
+}
+
+type CarWashedSummary {
+  totalActive: Int
+  totalCanceled: Int
+  totalGuests: Int
+  totalUnpaid: Int
+  totalWashed: Int
+}
+
+type Company {
+  address: Address
+  availablePlans: [Plan]
+  billingAnchor: Timestamp
+  cid: String
+  createdOn: Timestamp!
+  email: String
+  expiresOn: Timestamp
+  hasLimitedPeriod: Boolean
+  detached: Boolean
+  subscriptionPeriod: Int
+  id: ID
+  limit: Float
+  logo: String
+  managers: [Manager]
+  modifiedOn: Timestamp!
+  name: String
+  paymentMethod: PaymentMethod2
+  phone: String
+  status: CompanyStatus
+  summary: CompanySummary
+}
+
+type CompanySummary {
+  nextCharge: Timestamp
+  totalDue: Float
+}
+
+type Conditions {
+  rules: [ID]
+  stations: [ID]
+}
+
+type ControlConnection implements Connection {
+  edges: [ControlEdge]!
+  pageInfo: PageInfo!
+  summary: EventsSummary
+  totalCount: Int!
+}
+
+type ControlEdge implements Edge {
+  cursor: Cursor!
+  node: Reaction!
+}
+
+type Discount {
+  amount: Float
+  code: String
+  createdOn: Timestamp!
+  duration: Int!
+  expiresOn: Timestamp
+  id: ID!
+  limit: Int!
+  modifiedOn: Timestamp!
+  name: String!
+  rate: Float!
+  startsOn: Timestamp
+  status: DiscountStatus!
+  type: DiscountType
+  usage: Int!
+}
+
+type Event {
+  createdOn: Timestamp
+  id: ID
+  meta: Meta
+  name: EventTypes
+  payload: Payload
+}
+
+type EventConnection implements Connection {
+  edges: [EventEdge]!
+  pageInfo: PageInfo!
+  summary: EventsSummary
+  totalCount: Int!
+}
+
+type EventEdge implements Edge {
+  cursor: Cursor!
+  node: Event!
+}
+
+type EventsSummary {
+  totalAbandonedAccount: Int
+  totalSubscriptionCanceled: Int
+  totalSubscriptionCreated: Int
+  totalSubscriptionPastDue: Int
+  totalSubscriptionReactivated: Int
+  totalSubscriptionRemoved: Int
+}
+
+type GenericEventData {
+  id: ID
+}
+
+type Invite {
+  acceptedOn: Timestamp
+  account: Account
+}
+
+type Invoice {
+  account: Account
+  attempts: Int
+  billingDetails: BillingDetails
+  chargedOn: Timestamp
+  company: Company
+  createdOn: Timestamp
+  discounts: [Discount]
+  dueDate: Timestamp
+  id: ID
+  items: [Line]
+  number: ID
+  order: Order
+  paymentMethod: PaymentMethod
+  receipt: String
+  station: Station
+  status: InvoiceStatus
+  subscriptions: [Subscr]
+  totalAmount: Float
+  totalDiscounts: Float
+  totalDue: Float
+  transactions: [Transaction]
+  type: TransactionType
+}
+
+type InvoiceConnection implements Connection {
+  edges: [InvoiceEdge]!
+  pageInfo: PageInfo!
+  summary: TransactionSummary
+  totalCount: Int!
+}
+
+type InvoiceEdge implements Edge {
+  cursor: Cursor!
+  node: Transaction!
+}
+
+type ItemChangedData {
+  car: String
+  id: ID
+  oldCar: String
+}
+
+type Line {
+  description: String
+  discount: Float
+  id: ID
+  price: Float
+  quantity: Int
+}
+
+type Location {
+  address: String
+  lat: Float
+  long: Float
+}
+
+type Manager {
+  createdOn: Timestamp
+  id: ID
+  modifiedOn: Timestamp
+  profile: Profile
+  role: Roles
+  stations: [ID]
+}
+
+type Meta {
+  owner: Account
+  source: User
+  station: Station
+}
+
+type Mutation {
+  activateCompanyMember(accountId: ID!, subscriptionId: ID!): SuccessResult!
+  activateSubscription(subscriptionId: ID!): SuccessResult!
+  addAccountNote(accountId: ID!, input: NoteInput): SuccessResult!
+  addCompany(input: CreateCompanyInput!): Company!
+  addCompanyMember(companyId: ID!, input: AddCompanyMemberInput!): Account!
+  addDiscount(input: CreateDiscountInput): Discount!
+  addPlan(input: CreatePlanInput): Plan!
+  addProduct(input: CreateProductInput): Product!
+  addPushToken(token: String): SuccessResult!
+  addService(input: CreateServiceInput): Service!
+  "Get Payment URL, will add/update token"
+  authorizePayment(errorUrl: String, subscriptionId: ID!, successUrl: String, validateOnly: Boolean): String!
+  cancelSubscription(reason: String, subscriptionId: ID!): SuccessResult!
+  changeSubscriptionCarID(car: ID!, subscriptionId: ID!): SuccessResult!
+  changeSubscriptionCycle(expiresOn: Timestamp!, subscriptionId: ID!): SuccessResult!
+  changeSubscriptionLabel(label: String!, subscriptionId: ID!): SuccessResult!
+  changeSubscriptionPaymentMethod(method: ID!, subscriptionId: ID!): SuccessResult!
+  changeSubscriptionPlan(plan: ID!, subscriptionId: ID!): SuccessResult!
+  changeSubscriptionStation(station: ID!, subscriptionId: ID!): SuccessResult!
+  charge(amount: Float, subscriptionId: ID!): SuccessResult!
+  contactRequest(input: ContactInput!): SuccessResult!
+  createAccount(input: CreateAccountInput!): Account!
+  createManager(company: ID, input: CreateAccountInput!, password: String!, role: Roles!, stations: [ID]): Manager!
+  createStation(input: CreateStationInput!): Station!
+  createSubscription(accountId: ID, input: CreateSubscriptionInput!): Subscr!
+  deleteAccount(accountId: ID!): SuccessResult!
+  deleteManager(id: ID!): SuccessResult!
+  deletePaymentMethod(accountId: ID!, paymentMethod: ID!): SuccessResult!
+  deleteStation(id: ID!): SuccessResult!
+  deleteSubscription(subscriptionId: ID!): SuccessResult!
+  exportAbandoned(filter: AbandonedFilterInput): SuccessResult!
+  exportAccounts(filter: AccountFilterInput): SuccessResult!
+  exportCompanyMembers(companyId: ID!): SuccessResult!
+  inviteFriend(phone: String!): SuccessResult!
+  notify(message: String, recipients: [ID!]!): SuccessResult!
+  pauseCompanyMember(accountId: ID!, subscriptionId: ID!): SuccessResult!
+  pauseProduct(id: ID!): SuccessResult!
+  pickOrder(orderId: ID!, stationId: ID!, pickedQuantity: Int): SuccessResult!
+  placeOrder(paymentMethod: ID!, productId: ID!): Order
+  refund(amount: Float, paymentMethod: ID!, subscriptionId: ID!): SuccessResult!
+  removeCompany(id: ID!): SuccessResult!
+  removeCompanyMember(accountId: ID!, subscriptionId: ID!): SuccessResult!
+  removeDiscount(id: ID!): SuccessResult!
+  removePlan(id: ID!): SuccessResult!
+  removeProduct(id: ID!): SuccessResult!
+  removeService(id: ID!): SuccessResult!
+  requestCleanerCode(stationId: ID!): Int!
+  resendReceipt(invoiceId: ID!, receiptNumber: Int!): SuccessResult!
+  resetPassword(accountId: ID!): SuccessResult!
+  resumeProduct(id: ID!): SuccessResult!
+  signUp(input: CreateAccountInput!, password: String!): Account!
+  testProductNotification(input: NotificationInput!, productId: ID!): SuccessResult!
+  updateAccount(id: ID, input: UpdateAccountInput): SuccessResult!
+  updatePoints(id: ID, input: UpdatePointsInput): SuccessResult!
+  updateCompany(id: ID, input: UpdateCompanyInput!): SuccessResult!
+  updateCompanyMember(accountId: ID!, input: UpdateCompanyMemberInput!, subscriptionId: ID!): SuccessResult!
+  updateDiscount(id: ID, input: UpdateDiscountInput): SuccessResult!
+  updateManager(company: ID, id: ID, input: UpdateAccountInput, role: Roles, stations: [ID]): SuccessResult!
+  updatePlan(id: ID, input: UpdatePlanInput): SuccessResult!
+  updateProduct(id: ID, input: UpdateProductInput): SuccessResult!
+  updateService(id: ID, input: UpdateServiceInput): SuccessResult!
+  updateStation(id: ID, input: UpdateStationInput): SuccessResult!
+  uploadCompanyMembers(companyId: ID!, file: Upload!): SuccessResult!
+  exportOrders(filter: OrderFilterInput): SuccessResult!
+}
+
+type NoteAddedData {
+  text: String
+}
+
+type Notification {
+  action: String
+  body: String
+  channel: NotificationChannels
+  enabled: Boolean
+  title: String
+  imageUrl: String
+  landscapeImageUrl: String
+  validityHours: Int
+}
+
+type Pick{
+  quantity: Int
+  pickedIn: Station
+  pickedOn: Timestamp
+}
+
+type Order {
+  account: Account
+  createdOn: Timestamp!
+  expiresOn: Timestamp
+  id: ID
+  invoice: Invoice
+  modifiedOn: Timestamp!
+  paymentMethod: PaymentMethod
+  pickedIn: Station
+  pickedOn: Timestamp
+  product: Product
+  quantity: Int
+  stations: [Station]
+  status: OrderStatus
+  totalDue: Float
+  pickedQuantity: Int
+  picks:[Pick]
+}
+
+type OrderConnection implements Connection {
+  edges: [OrderEdge]!
+  pageInfo: PageInfo!
+  summary: OrdersSummary
+  totalCount: Int!
+}
+
+type OrderEdge implements Edge {
+  cursor: Cursor!
+  node: Order!
+}
+
+type OrdersSummary {
+  totalAccepted: Int
+  totalCanceled: Int
+  totalExpired: Int
+  totalOrders: Int
+  totalItems: Int
+  totalPending: Int
+  totalPicked: Int
+  totalUnpaid: Int
+}
+
+type PageInfo {
+  endCursor: Cursor
+  hasNextPage: Boolean!
+}
+
+type PaymentData {
+  id: ID
+  invoice: Invoice
+  reason: String
+}
+
+type PaymentMethod {
+  approvalNumber: String
+  cardMonth: Int
+  cardNumber: String
+  cardOwnerId: Float
+  cardOwnerName: String
+  cardYear: Int
+  createdOn: Timestamp
+  expiresOn: Timestamp
+  id: ID
+  modifiedOn: Timestamp
+}
+
+type PaymentMethod2 {
+  bank: Int
+  branch: Int
+  description: String
+  number: Int
+  type: PaymentMethodType
+}
+
+type PaymentMethodData {
+  id: ID
+  paymentMethod: PaymentMethod
+}
+
+type Period {
+  end: Timestamp
+  start: Timestamp
+}
+
+type Plan {
+  amount: Float
+  code: String
+  description: String
+  details: String
+  id: ID
+  interval: PlanInterval
+  items: [PlanItem]
+  notes: String
+  privacy: Privacy
+}
+
+type PlanChangedData {
+  id: ID
+  oldPlan: Plan
+  plan: Plan
+}
+
+type PlanItem {
+  limit: Int
+  product: Product
+  quantity: Int
+}
+
+type Product {
+  categories: [Categories]
+  conditions: Conditions
+  createdOn: Timestamp!
+  description: String!
+  expiresOn: Timestamp
+  id: ID!
+  image: String!
+  modifiedOn: Timestamp!
+  name: String!
+  notifications: [Notification]
+  period: Period
+  points: Int
+  pointsAllowed: Boolean
+  price: Float!
+  privacy: Privacy
+  publishOn: Timestamp
+  published: Boolean
+  sale_price: Float
+  showOnMainScreen: Boolean
+  status: ProductStatus!
+  stock: Int!
+  usage: Int
+  bundleQuantity: Int
+  bundle: Boolean
+}
+
+type Profile {
+  city: String
+  email: String
+  firstname: String
+  lastname: String
+  name: String
+  phone: String
+  source: String
+}
+
+type Query {
+  abandoned(filter: AbandonedFilterInput, pagination: PaginationInput, search: String): AbandonedConnection!
+  account(id: ID): Account
+  accounts(filter: AccountFilterInput, pagination: PaginationInput, search: String): AccountConnection!
+  companies: [Company]
+  company(id: ID): Company
+  control(filter: EventsFilterInput, pagination: PaginationInput): ControlConnection!
+  discounts: [Discount]!
+  events(filter: EventsFilterInput, pagination: PaginationInput): EventConnection!
+  invoices(filter: InvoiceFilterInput, pagination: PaginationInput, search: String): InvoiceConnection!
+  managers: [Manager]
+  orders(filter: OrderFilterInput, pagination: PaginationInput): OrderConnection!
+  plans: [Plan]!
+  product(id: ID!): Product!
+  products(filter: ProductFilterInput, search: String): [Product]!
+  services: [Service]!
+  stations(id: ID): [Station]
+  statistics: Stats!
+  verifyCoupon(code: String!): Discount!
+  washes(filter: WashFilterInput, pagination: PaginationInput, search: String): WashConnection!
+}
+
+type Reaction {
+  account: Account
+  createdOn: Timestamp
+  events: [Event]
+  modifiedOn: Timestamp
+}
+
+type Service {
+  description: String
+  discount: String
+  duration: String
+  id: ID
+  notes: String
+  price: Float
+  title: String
+}
+
+type Station {
+  createdOn: Timestamp
+  email: String
+  id: ID
+  loads: [[Int]]
+  location: Location
+  managers: [Manager]
+  modifiedOn: Timestamp
+  name: String
+  openingHours: [openingHours]
+  phone: String
+  summary: StationSummary
+  terminal: Int
+}
+
+type StationChangedData {
+  id: ID
+  oldStation: Station
+  station: Station
+}
+
+type StationStats {
+  breakdown: [Breakdown]
+  station: Station
+  summary: Summary
+}
+
+type StationSummary {
+  todayWashes: Int
+  totalCars: Int
+  totalWashes: Int
+}
+
+type Stats {
+  stations: [StationStats]
+  summary: Summary
+}
+
+type Subscr {
+  account: Account
+  car: ID
+  chargedOn: Timestamp
+  company: Company
+  createdOn: Timestamp
+  discounts: [Discount]
+  expiresOn: Timestamp
+  id: ID
+  image: String
+  label: String
+  metering: Int
+  modifiedOn: Timestamp
+  paymentMethod: PaymentMethod
+  plan: Plan
+  station: Station
+  status: SubscriptionStatus!
+  usage: Int
+}
+
+type Subscription {
+  event: Event
+}
+
+type SubscriptionCanceledData {
+  id: ID
+  reason: String
+}
+
+type SubscriptionDeletedData {
+  car: String
+  id: ID
+}
+
+type SuccessResult {
+  code: Int
+  message: String
+}
+
+type Summary {
+  totalActive: Int
+  totalInactive: Int
+  totalOnHold: Int
+  totalWashes: Int
+}
+
+type Totals {
+  Active: Int
+  Inactive: Int
+  OnHold: Int
+}
+
+type Transaction {
+  account: Account
+  attempts: Int
+  code: Int
+  company: Company
+  createdOn: Timestamp
+  deal: String
+  description: String
+  id: ID
+  invoice: Invoice
+  order: Order
+  paymentMethod: PaymentMethod
+  receipt: Int
+  station: Station
+  status: TransactionStatus
+  subscriptions: [Subscr]
+  totalDue: Float
+  type: TransactionType
+}
+
+type TransactionSummary {
+  paymentFailedCount: Float
+  paymentSucceededAmount: Float
+  paymentSucceededCount: Float
+  refundFailedCount: Float
+  refundSucceededAmount: Float
+  refundSucceededCount: Float
+  totalRevenue: Float
+}
+
+type Wash {
+  account: Account
+  car: String
+  id: ID
+  image: String
+  periodic: Int
+  station: Station
+  status: WashedCarStatus
+  subscription: Subscr
+  today: Int
+  total: Int
+  washedOn: Timestamp!
+}
+
+type WashConnection implements Connection {
+  breakdown: [WashesBreakdown]
+  edges: [WashEdge]!
+  pageInfo: PageInfo!
+  summary: CarWashedSummary
+  totalCount: Int!
+}
+
+type WashEdge implements Edge {
+  cursor: Cursor!
+  node: Wash!
+}
+
+type WashesBreakdown {
+  station: ID
+  totalWashes: Int
+}
+
+type openingHours {
+  day: String
+  hours: String
+  order: Int
+}
+
+enum AccountStatus {
+  ACTIVE
+  INACTIVE
+  UNPAID
+}
+
+enum CompanyStatus {
+  ACTIVE
+  INACTIVE
+  UNPAID
+}
+
+enum DiscountStatus {
+  ACTIVE
+  EXCEED
+  EXPIRED
+  INACTIVE
+}
+
+enum DiscountType {
+  AUTOMATIC
+  COUPON
+}
+
+enum EventTypes {
+  ACCOUNT_ABANDONED
+  ACCOUNT_CREATED
+  ACCOUNT_DELETED
+  ACCOUNT_NOTE_ADDED
+  ACCOUNT_UPDATED
+  CAR_WASHED
+  ORDER_ACCEPTED
+  ORDER_PAYMENT_FAILED
+  ORDER_PAYMENT_SUCCEEDED
+  ORDER_PICKED
+  ORDER_PLACED
+  REGISTRATION_COMPLETED
+  SUBSCRIPTION_ACTIVATED
+  SUBSCRIPTION_CANCELED
+  SUBSCRIPTION_CREATED
+  SUBSCRIPTION_CYCLE_CHANGED
+  SUBSCRIPTION_DELETED
+  SUBSCRIPTION_ITEM_CHANGED
+  SUBSCRIPTION_PAUSED
+  SUBSCRIPTION_PAYMENT_FAILED
+  SUBSCRIPTION_PAYMENT_METHOD_ADDED
+  SUBSCRIPTION_PAYMENT_SUCCEEDED
+  SUBSCRIPTION_PLAN_CHANGED
+  SUBSCRIPTION_REACTIVATED
+  SUBSCRIPTION_REFUNDED
+  SUBSCRIPTION_REFUND_FAILED
+  SUBSCRIPTION_RESUMED
+  SUBSCRIPTION_STATION_CHANGED
+}
+
+enum InvoiceStatus {
+  CREATED
+  OVERDUE
+  PAID
+  PENDING
+  UNPAID
+  VOIDED
+}
+
+enum NotificationChannels {
+  EMAIL
+  PUSH
+  SMS
+}
+
+enum OrderStatus {
+  ACCEPTED
+  CANCELED
+  EXPIRED
+  PENDING
+  PICKED
+  PLACED
+  UNPAID
+}
+
+enum PaymentMethodType {
+  BANK_TRANSFER
+  CREDIT_CARD
+  OFFLINE
+}
+
+enum PlanInterval {
+  ANNUAL
+  MONTHLY
+}
+
+enum Privacy {
+  PRIVATE
+  PUBLIC
+}
+
+enum ProductStatus {
+  ACTIVE
+  EXCEED
+  EXPIRED
+  INACTIVE
+  PAUSED
+}
+
+enum Roles {
+  ADMIN
+  AFFILIATE
+  COMPANY
+  MANAGER
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAUSED
+  PENDING
+  UNPAID
+}
+
+enum Sources {
+  facebook
+  direct
+  web
+  google
+  crm
+  mobile
+}
+
+enum TransactionStatus {
+  PAID
+  UNPAID
+}
+
+enum TransactionType {
+  PAYMENT
+  REFUND
+}
+
+enum WashedCarStatus {
+  ACTIVE
+  CANCELED
+  GUEST
+  PAUSED
+  PENDING
+  UNPAID
+}
+
+enum Categories {
+  WASH_TYPES
+  CAR_ACCESSORIZES
+  FRAGRANCES
+  CLEANERS
+  EXTRA
+  CARDS
+  OTHERS
+}
+
+input AbandonedFilterInput {
+  dates: RangeFilter
+}
+
+input AccountFilterInput {
+  company: ID
+  dates: RangeFilter
+  plans: [ID]
+  stations: [ID]
+  statuses: [SubscriptionStatus]
+  sources: [Sources]
+  value: Int
+  clientsWithPurchases: Boolean
+  clientsWithSubscriptions: Boolean
+}
+
+input AddCompanyMemberInput {
+  car: String
+  email: String
+  firstname: String
+  lastname: String
+  phone: String
+  plan: ID
+  period: Int
+}
+
+input AddressInput {
+  city: String
+  postalCode: String
+  street: String
+}
+
+input ConditionsInput {
+  rules: [ID]
+  stations: [ID]
+}
+
+input ContactInput {
+  car: String
+  email: String!
+  message: String!
+  name: String
+  phone: String
+  station: String
+}
+
+input CreateAccountInput {
+  city: String!
+  email: String!
+  firstname: String!
+  lastname: String!
+  phone: String!
+}
+
+input CreateCompanyInput {
+  address: AddressInput
+  availablePlans: [ID]
+  billingAnchor: Timestamp
+  cid: String
+  email: String
+  expiresOn: Timestamp
+  hasLimitedPeriod: Boolean
+  detached: Boolean
+  subscriptionPeriod: Int
+  limit: Float
+  logo: String
+  name: String
+  paymentMethod: PaymentMethodInput
+  phone: String
+  station: [ID]
+}
+
+input CreateDiscountInput {
+  code: String!
+  duration: Int
+  expiration: Timestamp!
+  limit: Int!
+  name: String!
+  rate: Float!
+  status: DiscountStatus
+}
+
+input CreatePlanInput {
+  amount: Float
+  code: String
+  description: String
+  details: String
+  interval: PlanInterval
+  items: [PlanItemInput]
+  notes: String
+  privacy: Privacy
+  scheme: String
+}
+
+input CreateProductInput {
+  categories: [Categories]
+  conditions: ConditionsInput
+  description: String!
+  expiresOn: Timestamp
+  image: String!
+  name: String!
+  notifications: [NotificationInput]
+  period: PeriodInput
+  points: Int
+  pointsAllowed: Boolean
+  price: Float!
+  privacy: Privacy
+  publishOn: Timestamp
+  sale_price: Float
+  showOnMainScreen: Boolean
+  stock: Int!
+  bundleQuantity: Int
+  bundle: Boolean
+}
+
+input CreateServiceInput {
+  description: String
+  discount: String
+  duration: String
+  notes: String
+  price: Float
+  title: String
+}
+
+input CreateStationInput {
+  email: String!
+  location: LocationInput!
+  name: String!
+  openingHours: [openingHoursInput]!
+  phone: String!
+  terminal: String!
+}
+
+input CreateSubscriptionInput {
+  car: ID!
+  coupon: String
+  label: String
+  paymentMethod: ID
+  plan: ID!
+  station: ID!
+}
+
+input EventsFilterInput {
+  dates: RangeFilter
+  only: [EventTypes!]!
+  owner: ID
+  stations: [ID]
+}
+
+input InvoiceFilterInput {
+  account: ID
+  company: ID
+  dates: RangeFilter
+  stations: [ID]
+  statuses: [TransactionStatus]
+  types: [TransactionType]
+}
+
+input LocationInput {
+  address: String
+  lat: Float
+  long: Float
+}
+
+input NoteInput {
+  text: String!
+}
+
+input NotificationInput {
+  action: String
+  body: String
+  channel: NotificationChannels
+  enabled: Boolean
+  title: String
+  imageUrl: String
+  landscapeImageUrl: String
+  validityHours: Int
+}
+
+input OrderFilterInput {
+  account: ID
+  dates: RangeFilter
+  products: [ID]
+  stations: [ID]
+  statuses: [OrderStatus]
+}
+
+input PaginationInput {
+  after: Cursor
+  first: Int!
+}
+
+input PaymentMethodInput {
+  bank: Int
+  branch: Int
+  description: String
+  number: Int
+  type: PaymentMethodType
+}
+
+input PeriodInput {
+  end: Timestamp
+  start: Timestamp
+}
+
+input PlanItemInput {
+  limit: Int
+  productId: ID
+  quantity: Int
+}
+
+input ProductFilterInput {
+  dates: RangeFilter
+  stations: [ID]
+  statuses: [ProductStatus]
+}
+
+input RangeFilter {
+  since: Timestamp
+  until: Timestamp
+}
+
+input UpdateAccountInput {
+  city: String
+  email: String
+  firstname: String
+  lastname: String
+  phone: String
+}
+
+input UpdatePointsInput {
+  points: Int
+}
+
+input UpdateCompanyInput {
+  address: AddressInput
+  availablePlans: [ID]
+  billingAnchor: Timestamp
+  cid: String
+  email: String
+  expiresOn: Timestamp
+  hasLimitedPeriod: Boolean
+  detached: Boolean
+  subscriptionPeriod: Int
+  limit: Float
+  logo: String
+  name: String
+  paymentMethod: PaymentMethodInput
+  phone: String
+}
+
+input UpdateCompanyMemberInput {
+  car: String
+  email: String
+  firstname: String
+  lastname: String
+  phone: String
+  plan: ID
+}
+
+input UpdateDiscountInput {
+  code: String
+  duration: Int
+  expiration: Timestamp
+  limit: Int
+  name: String
+  rate: Float
+  status: DiscountStatus
+}
+
+input UpdatePlanInput {
+  amount: Float
+  code: String
+  description: String
+  details: String
+  interval: PlanInterval
+  items: [PlanItemInput]
+  notes: String
+  privacy: Privacy
+  scheme: String
+}
+
+input UpdateProductInput {
+  categories: [Categories]
+  conditions: ConditionsInput
+  description: String
+  expiresOn: Timestamp
+  image: String
+  name: String
+  notifications: [NotificationInput]
+  period: PeriodInput
+  points: Int
+  pointsAllowed: Boolean
+  price: Float
+  privacy: Privacy
+  publishOn: Timestamp
+  sale_price: Float
+  showOnMainScreen: Boolean
+  stock: Int
+  order: Int
+  bundleQuantity: Int
+  bundle: Boolean
+}
+
+input UpdateServiceInput {
+  description: String
+  discount: String
+  duration: String
+  notes: String
+  price: Float
+  title: String
+}
+
+input UpdateStationInput {
+  email: String
+  location: LocationInput
+  name: String
+  openingHours: [openingHoursInput]
+  phone: String
+  terminal: String
+}
+
+input WashFilterInput {
+  account: ID
+  company: ID
+  dates: RangeFilter
+  station: ID
+}
+
+input openingHoursInput {
+  day: String
+  hours: String
+  order: Int
+}
+
+input AdvertisesInput {
+    adImageUrl: String
+    itemId: String
+    enabled: Boolean
+}
+
+"The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch."
+scalar Timestamp
+
+scalar Cursor
+
+scalar Upload
