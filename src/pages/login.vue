@@ -26,7 +26,7 @@ const handleSubmit = async () => {
   try {
     const loginRes = await firebase.auth().signInWithEmailAndPassword(email.value, password.value)
     if (loginRes) {
-      const token = await loginRes.user.getIdToken(true)
+      const token = (await loginRes.user?.getIdToken(true)) as string
       fireBaseUser.setUser(loginRes.user)
       localStorage.setItem('token', token)
     }

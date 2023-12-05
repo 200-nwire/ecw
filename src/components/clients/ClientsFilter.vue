@@ -6,11 +6,10 @@ import { useStationStore } from '@/store/stations'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import InstantScroll from '@/components/InstantScroll.vue'
 
-import search from '@/assets/svg/search.svg?component'
-
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 
+import { sources, statuses } from '@/composables/useFilter'
 const clientStore = useClientStore()
 const planStore = usePlanStore()
 const stationStore = useStationStore()
@@ -22,47 +21,6 @@ const hasNextPage = computed(() => clientStore.hasNextPage)
 const endCursor = computed(() => clientStore.endCursor)
 
 const isLoading = ref(false)
-
-const sources = [
-  {
-    name: 'פייסבוק',
-    value: 'facebook',
-  },
-  {
-    name: 'אתר',
-    value: 'web',
-  },
-  {
-    name: 'גוגל',
-    value: 'google',
-  },
-  {
-    name: 'crm',
-    value: 'crm',
-  },
-  {
-    name: 'אפליקציה',
-    value: 'mobile',
-  },
-]
-const statuses = [
-  {
-    name: 'רכב פעיל',
-    value: 'ACTIVE',
-  },
-  {
-    name: 'רכב לא שילם',
-    value: 'UNPAID',
-  },
-  {
-    name: 'רכב מבוטל מהחודש הבא',
-    value: 'PAUSED',
-  },
-  {
-    name: 'רכב מבוטל',
-    value: 'CANCELED',
-  },
-]
 
 const setInitialFilters = () => {
   return {
@@ -148,8 +106,8 @@ const setFilters = async () => {
     :is-full-page="true"
   />
   <InstantScroll :filters="clientFilters" />
-  <VCard class="pa-6 pb-6">
-    <div class="flex flex-row-reverse items-center justify-start gap-x-[8%] mr-10">
+  <VCard class="pa-6 pb-6 mb-4">
+    <div class="flex flex-row-reverse items-center justify-start gap-x-[25%] mr-10">
       <VCheckbox
         @click="setTempClients"
         class="whitespace-nowrap"
@@ -263,7 +221,6 @@ const setFilters = async () => {
           placeholder="search"
           variant="outlined"
           density="compact"
-          prepend-inner-icon="search"
         />
       </div>
     </div>
