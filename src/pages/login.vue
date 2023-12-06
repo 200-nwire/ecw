@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import firebase, { fireBaseUser } from '@/Firebase'
+import router from '@/router'
+import { useAccountStore } from '@/store/account'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import logo from '@images/logo.svg?raw'
 import authV1MaskDark from '@images/pages/auth-v1-mask-dark.png'
@@ -13,6 +15,8 @@ const form = ref({
   password: '',
   remember: false,
 })
+
+const { setAuthState } = useAccountStore()
 
 const vuetifyTheme = useTheme()
 const authThemeMask = computed(() => {
@@ -29,8 +33,11 @@ const handleSubmit = async () => {
       const token = (await loginRes.user?.getIdToken(true)) as string
       fireBaseUser.setUser(loginRes.user)
       localStorage.setItem('token', token)
+      setAuthState(true)
+      router.push({ path: '/dashboard' })
     }
   } catch {
+    setAuthState(false)
     console.log('authentication error')
   }
 }

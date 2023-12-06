@@ -49,15 +49,15 @@ const clientsSummary = computed(() => clientStore.clientsSummary)
       class="flex items-center justify-between pr-4 py-2 sticky top-0 z-10 bg-[#e5e7eb]"
     >
       <span class="justify-self-start w-[9%]">שם מלא</span>
-      <span class="flex justify-center w-[9%]">הרשמה</span>
+      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">הרשמה</span>
       <span class="flex justify-center w-[9%]">טלפון</span>
-      <span class="flex justify-center w-[9%]">מקור</span>
-      <span class="flex justify-center w-[9%]">ווש בק</span>
-      <span class="flex justify-center w-[9%]">מוצרים</span>
-      <span class="flex justify-center w-[9%]">סניף רשום</span>
+      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">מקור</span>
+      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">ווש בק</span>
+      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">מוצרים</span>
+      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">סניף רשום</span>
       <span class="flex justify-center w-[9%]">מספר רכב</span>
       <span class="flex justify-center w-[9%]">חיוב קרוב</span>
-      <span class="flex justify-center w-[9%]">מסלול</span>
+      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">מסלול</span>
       <button class="justify-self-start w-[9%]">חיוב קבוצה</button>
     </div>
     <div

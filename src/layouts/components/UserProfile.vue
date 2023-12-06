@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import avatar1 from '@images/avatars/avatar-1.png';
+import { useAccountStore } from '@/store/account'
+import avatar1 from '@images/avatars/avatar-1.png'
+
+const { setAuthState } = useAccountStore()
 
 const logout = () => {
   localStorage.removeItem('token')
+  setAuthState(false)
 }
-
 </script>
 
 <template>
@@ -52,9 +55,7 @@ const logout = () => {
               </VListItemAction>
             </template>
 
-            <VListItemTitle class="font-weight-semibold">
-              John Doe
-            </VListItemTitle>
+            <VListItemTitle class="font-weight-semibold"> John Doe </VListItemTitle>
             <VListItemSubtitle>Admin</VListItemSubtitle>
           </VListItem>
           <VDivider class="my-2" />

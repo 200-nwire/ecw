@@ -8,7 +8,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex items-center justify-between my-4 border-[1px] border-solid border-gray p-4 bg-white">
+  <div
+    class="flex flex-wrap gap-y-3 items-center justify-between my-4 border-[1px] border-solid border-gray p-4 bg-white"
+  >
     <div class="border-e-[9px] border-e-solid border-e-[red] pr-2">
       <span class="mr-2">{{ props.clientsSummary.totalAccounts.Active }}</span
       ><span>לקוח פעיל</span>

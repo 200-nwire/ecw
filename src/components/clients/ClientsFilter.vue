@@ -107,7 +107,7 @@ const setFilters = async () => {
   />
   <InstantScroll :filters="clientFilters" />
   <VCard class="pa-6 pb-6 mb-4">
-    <div class="flex flex-row-reverse items-center justify-start gap-x-[25%] mr-10">
+    <div class="flex flex-row-reverse gap-x-[30%] sm:items-center sm:justify-start sm:gap-x-[25%] mr-10">
       <VCheckbox
         @click="setTempClients"
         class="whitespace-nowrap"
@@ -124,7 +124,7 @@ const setFilters = async () => {
         >לקוחות עם רכישות</VCheckbox
       >
     </div>
-    <div class="flex flex-row-reverse items-center justify-around gap-x-2 my-6">
+    <div class="flex flex-col-reverse gap-y-3 sm:flex-row-reverse sm:items-center sm:justify-around gap-x-2 my-6">
       <VMenu>
         <template v-slot:activator="{ props }">
           <v-btn
@@ -210,7 +210,7 @@ const setFilters = async () => {
         multiple
       ></VSelect>
     </div>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col-reverse gap-y-2 sm:flex-row-reverse items-center justify-between">
       <VCardActions class="pb-0 pl-0">
         <VBtn @click="resetFilters">אפס סינון</VBtn>
         <VBtn @click="setFilters">עדכן עמוד</VBtn>
