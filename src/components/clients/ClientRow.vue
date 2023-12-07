@@ -29,25 +29,25 @@ const gotToClientPage = (clientId: string) => {
         'border-r-[green]': (client as IClient).node.status === 'ACTIVE'
       }"
     >
-      <VCardText class="flex-1 pt-0 pb-0 pl-0 pr-1 w-[20%] sm:w-[8%] overflow-hidden">{{
+      <VCardText class="flex-1 pt-0 pb-0 pl-0 pr-1 w-[20%] lg:w-[8%] overflow-hidden">{{
         (client as IClient).node.profile.name || ' '
       }}</VCardText>
-      <VCardText class="hidden sm:flex-1 sm:pt-0 sm:pb-0 sm:pl-0 sm:pr-0 sm:w-[8%] sm:overflow-hidden">{{
+      <VCardText class="hidden lg:block lg:flex-1 lg:pt-0 pb-0 lg:pl-0 lg:pr-0 lg:w-[8%] lg:overflow-hidden">{{
         getFormattedDate((client as IClient).node.createdOn) || ' '
       }}</VCardText>
-      <VCardText class="flex-1 pt-0 pb-0 pl-0 pr-0 w-[20%] sm:w-[8%] overflow-hidden">{{
+      <VCardText class="flex-1 pt-0 pb-0 pl-0 pr-0 w-[20%] lg:w-[8%] overflow-hidden">{{
         (client as IClient).node.profile.phone || ' '
       }}</VCardText>
-      <VCardText class="hidden sm:flex-1 sm:pt-0 sm:pb-0 sm:pl-0 sm:pr-0 sm:w-[8%] sm:overflow-hidden">{{
+      <VCardText class="hidden lg:block lg:flex-1 lg:pt-0 pb-0 lg:pl-0 lg:pr-0 lg:w-[8%] lg:overflow-hidden">{{
         (client as IClient).node.profile.source || 'אחר'
       }}</VCardText>
-      <VCardText class="hidden sm:flex-1 sm:pt-0 sm:pb-0 sm:pl-0 sm:pr-0 sm:w-[8%] sm:overflow-hidden">
+      <VCardText class="hidden lg:block lg:flex-1 lg:pt-0 pb-0 lg:pl-0 lg:pr-0 lg:w-[8%] lg:overflow-hidden">
         {{ (client as IClient).node.points }}
       </VCardText>
-      <VCardText class="hidden sm:flex-1 sm:pt-0 sm:pb-0 sm:pl-0 sm:pr-0 sm:w-[8%] sm:overflow-hidden">{{
+      <VCardText class="hidden lg:block lg:flex-1 lg:pt-0 pb-0 lg:pl-0 lg:pr-0 lg:w-[8%] lg:overflow-hidden">{{
         (client as IClient).node.totalPurchases
       }}</VCardText>
-      <div class="hidden sm:w-[8%] sm:overflow-hidden sm:pl-8">
+      <div class="hidden lg:block lg:w-[8%] lg:overflow-hidden lg:pl-8">
         <VCardText
           v-for="(subscription, index) in (client as IClient).node.subscriptions"
           :key="index"
@@ -56,7 +56,7 @@ const gotToClientPage = (clientId: string) => {
           {{ subscription.station.name || ' ' }}
         </VCardText>
       </div>
-      <div class="w-[20%] sm:w-[8%] overflow-hidden">
+      <div class="w-[20%] lg:w-[8%] overflow-hidden">
         <VCardText
           v-for="(subscription, index) in (client as IClient).node.subscriptions"
           :key="index"
@@ -73,7 +73,7 @@ const gotToClientPage = (clientId: string) => {
           <span>{{ subscription.car || ' ' }}</span>
         </VCardText>
       </div>
-      <div class="w-[20%] sm:w-[8%] overflow-hidden">
+      <div class="w-[20%] lg:w-[8%] overflow-hidden">
         <VCardText
           v-for="(subscription, index) in (client as IClient).node.subscriptions"
           :key="index"
@@ -82,7 +82,7 @@ const gotToClientPage = (clientId: string) => {
           {{ getFormattedDate(subscription.expiresOn) || ' ' }}
         </VCardText>
       </div>
-      <div class="hidden sm:w-[8%] sm:overflow-hidden">
+      <div class="hidden lg:block lg:w-[8%] lg:overflow-hidden">
         <VCardText
           v-for="(subscription, index) in (client as IClient).node.subscriptions"
           :key="index"

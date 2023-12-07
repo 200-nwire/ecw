@@ -12,6 +12,44 @@ import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
 
+import router from '@/router'
+
+import { useClientStore } from '@/store/clients'
+
+import { ref } from 'vue'
+
+const clientStore = useClientStore()
+const { getClients, getClientsSummary, setSearchFromHeader } = useClientStore()
+
+const showSerch = ref(false)
+
+const searchString = ref('')
+
+const clients = computed(() => clientStore.clients)
+
+const toggleSearch = () => {
+  showSerch.value = !showSerch.value
+}
+
+const serchClients = async () => {
+  if (!searchString.value) return
+  await getClients({ search: searchString.value })
+  await getClientsSummary({ search: searchString.value })
+  console.log('f')
+  if (!clients.value.accounts.edges.length) {
+    searchString.value = ''
+    return
+  }
+  if (clients.value.accounts.edges.length === 1) {
+    router.push({ path: `clients/${clients.value.accounts.edges[0].node.id}` })
+    searchString.value = ''
+    return
+  }
+  setSearchFromHeader(true)
+  router.push({ path: 'clients' })
+  searchString.value = ''
+}
+
 // Banner
 
 const vuetifyTheme = useTheme()
@@ -36,15 +74,26 @@ const upgradeBanner = computed(() => {
 
         <!-- 👉 Search -->
         <div
-          class="d-flex align-center cursor-pointer"
-          style="user-select: none;"
+          class="d-flex align-center cursor-pointer w-[80%]"
+          style="user-select: none"
         >
           <!-- 👉 Search Trigger button -->
-          <IconBtn>
+          <IconBtn @click="toggleSearch">
             <VIcon icon="mdi-magnify" />
           </IconBtn>
-
-          <span class="d-none d-md-flex align-center text-disabled">
+          <VTextField
+            v-if="showSerch"
+            v-model="searchString"
+            variant="outlined"
+            clearable
+            label="חפש לקוח"
+            density="compact"
+            class="mr-2 ml-2"
+          />
+          <span
+            class="d-none d-md-flex align-center text-disabled"
+            @click="serchClients"
+          >
             <span class="me-3">Search</span>
             <span class="meta-key">&#8984;K</span>
           </span>
@@ -171,15 +220,15 @@ const upgradeBanner = computed(() => {
         href="https://themeselection.com/item/materio-vuetify-vuejs-admin-template"
         target="_blank"
         rel="noopener noreferrer"
-        style="margin-left: 7px;"
+        style="margin-left: 7px"
       >
         <img
           :src="upgradeBanner"
           alt="upgrade-banner"
           transition="scale-transition"
           class="upgrade-banner mx-auto"
-          style="max-width: 230px;"
-        >
+          style="max-width: 230px"
+        />
       </a>
     </template>
 

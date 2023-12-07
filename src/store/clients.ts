@@ -5,6 +5,7 @@ export const useClientStore = defineStore({
     id: 'clients',
 
   state: () => ({
+    searchFromHeader: false,
     clients: [] as any,
     client: {} as any,
     clientsSummary: {} as any,
@@ -15,6 +16,9 @@ export const useClientStore = defineStore({
   }),
 
   actions: {
+    setSearchFromHeader(isFromHeader: boolean) {
+        this.searchFromHeader = isFromHeader
+    },
     async getClients(filters = {}, after = '') {
         try {
             const { data } = await fetchClients(filters, after);
@@ -26,7 +30,6 @@ export const useClientStore = defineStore({
             this.endCursor = data.accounts.pageInfo.endCursor;
         } catch (error) {
             console.log(error)
-
         }
     },
     async getClientsSummary(filters = {}, after = '') {

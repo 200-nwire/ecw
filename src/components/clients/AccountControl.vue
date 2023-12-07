@@ -115,11 +115,11 @@ const sortedClientActions = (accountControl: object) => {
     :is-full-page="true"
   />
   <VCard
-    class="px-12 py-6 max-h-[70%] overflow-auto control-for-account"
+    class="pb-6 pt-0 max-h-[70%] overflow-auto control-for-account"
     @scroll="handleScroll"
   >
     <div
-      class="flex items-center justify-between w-full sticky top-[0%]"
+      class="flex px-12 items-center justify-between w-full sticky top-[0%] bg-white py-6 left=[2%]"
       dir="rtl"
     >
       <h3 class="text-xl font-bold text-[#2087e3]">פעולות לקוח</h3>
@@ -132,7 +132,7 @@ const sortedClientActions = (accountControl: object) => {
     <div
       v-for="(actions, key) in sortedClientActions(props.accountControl)"
       :key="key"
-      class="flex flex-col items-end"
+      class="flex flex-col items-end px-14"
     >
       <div class="flex flex-col items-end justify-start">
         <span class="text-base font-normal text-[#3e97ff]">

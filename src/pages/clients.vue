@@ -9,21 +9,24 @@ import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/css/index.css'
 
 const clientStore = useClientStore()
-const { getClients, getClientsSummary } = useClientStore()
+const { getClients, getClientsSummary, setSearchFromHeader } = useClientStore()
 
 const showClients = ref(false)
 
 const isLoading = ref(false)
 
+const isFromHeader = computed(() => clientStore.searchFromHeader)
+
 onMounted(async () => {
   const token = localStorage.getItem('token')
-  if (token) {
+  if (token && !isFromHeader.value) {
     isLoading.value = true
     await getClients()
     await getClientsSummary()
-    showClients.value = true
     isLoading.value = false
   }
+  showClients.value = true
+  setSearchFromHeader(false)
 })
 
 const clients = computed(() => clientStore.clients)
@@ -49,15 +52,15 @@ const clientsSummary = computed(() => clientStore.clientsSummary)
       class="flex items-center justify-between pr-4 py-2 sticky top-0 z-10 bg-[#e5e7eb]"
     >
       <span class="justify-self-start w-[9%]">שם מלא</span>
-      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">הרשמה</span>
+      <span class="lg:flex lg:justify-center lg:w-[9%] hidden">הרשמה</span>
       <span class="flex justify-center w-[9%]">טלפון</span>
-      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">מקור</span>
-      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">ווש בק</span>
-      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">מוצרים</span>
-      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">סניף רשום</span>
+      <span class="lg:flex lg:justify-center lg:w-[9%] hidden">מקור</span>
+      <span class="lg:flex lg:justify-center lg:w-[9%] hidden">ווש בק</span>
+      <span class="lg:flex lg:justify-center lg:w-[9%] hidden">מוצרים</span>
+      <span class="lg:flex lg:justify-center lg:w-[9%] hidden">סניף רשום</span>
       <span class="flex justify-center w-[9%]">מספר רכב</span>
       <span class="flex justify-center w-[9%]">חיוב קרוב</span>
-      <span class="sm:flex sm:justify-center sm:w-[9%] hidden">מסלול</span>
+      <span class="lg:flex lg:justify-center lg:w-[9%] hidden">מסלול</span>
       <button class="justify-self-start w-[9%]">חיוב קבוצה</button>
     </div>
     <div
