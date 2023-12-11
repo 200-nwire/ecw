@@ -65,7 +65,10 @@ const showImage = () => {
     <div v-if="washes.length === 0">
       <p class="text-xl text-[#4a74eb] text-center">-עדיין אין פה כלום-</p>
     </div>
-    <div v-else>
+    <div
+      class="mb-12"
+      v-else
+    >
       <VRow
         v-for="(wash, index) in washes"
         :key="((wash as IWash)).node.id"
@@ -110,7 +113,7 @@ const showImage = () => {
       </VRow>
       <VBtn
         @click="openWashDialog"
-        class="absolute bottom-0 left-0 mr-2"
+        class="absolute bottom-2 left-2 mr-2"
         >הצג הכל</VBtn
       >
     </div>

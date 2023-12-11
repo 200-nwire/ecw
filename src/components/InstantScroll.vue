@@ -51,7 +51,7 @@ const pageScroll = async () => {
     :is-full-page="true"
   />
   <div
-    class="rounded-[50%] cursor-pointer fixed bottom-[10%] right-[10%] bg-[lightblue] h-[50px] w-[50px] z-10 flex items-center justify-center"
+    class="rounded-[50%] cursor-pointer fixed bottom-[5%] right-[5%] bg-[lightblue] h-[50px] w-[50px] z-10 flex items-center justify-center"
     :class="{
       'rotate-90': scrollDirectionDown,
       'rotate-[-90deg]': !scrollDirectionDown,

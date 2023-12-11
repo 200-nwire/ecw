@@ -62,7 +62,10 @@ const closeDialog = () => {
     <div v-if="clientOrders.length === 0">
       <p class="text-xl text-[#4a74eb] text-center">-עדיין אין פה כלום-</p>
     </div>
-    <div v-else>
+    <div
+      class="mb-12"
+      v-else
+    >
       <VRow
         v-for="order in clientOrders"
         :key="(order as Order).node.id"
@@ -96,7 +99,7 @@ const closeDialog = () => {
       </VRow>
       <VBtn
         @click="openOrderDialog"
-        class="absolute bottom-0 left-0 mr-2"
+        class="absolute bottom-2 left-2 mr-2"
         >הצג הכל</VBtn
       >
     </div>

@@ -54,7 +54,10 @@ const closeDialog = () => {
     <div v-if="payments.length === 0">
       <p class="text-xl text-[#4a74eb] text-center">-עדיין אין פה כלום-</p>
     </div>
-    <div v-else>
+    <div
+      class="mb-12"
+      v-else
+    >
       <VRow
         v-for="payment in payments"
         :key="(payment as Payment).node.id"
@@ -82,7 +85,7 @@ const closeDialog = () => {
       </VRow>
       <VBtn
         @click="openPaymentsDialog"
-        class="absolute bottom-0 left-0 mr-1"
+        class="absolute bottom-1 left-1 mr-1"
         >הצג הכל</VBtn
       >
     </div>
