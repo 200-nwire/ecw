@@ -12,6 +12,8 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
+import { LoadingPlugin } from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 
 loadFonts()
 
@@ -25,6 +27,7 @@ app.runWithContext(() => {
     app.use(vuetify)
     app.use(createPinia())
     app.use(router)
+    app.use(LoadingPlugin)
     app.component('VueDatePicker', VueDatePicker)
 
     // Mount vue app

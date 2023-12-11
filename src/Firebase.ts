@@ -28,14 +28,15 @@ export default firebase;
 
 class FireBaseUser {
   user = null;
-  lastCreateToken = new Date(null);
+  lastCreateToken = new Date(null as any);
   token = null;
 
   getUser() {
     return this.user;
   }
-  setUser(user) {
+  setUser(user: any) {
     this.user = user;
+    this.token = user.getIdToken(true);
   }
 
   async getToken() {
@@ -53,4 +54,5 @@ class FireBaseUser {
     this.token = null;
   }
 }
+
 export const fireBaseUser = new FireBaseUser();
