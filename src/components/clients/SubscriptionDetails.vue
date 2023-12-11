@@ -26,7 +26,7 @@ const props = defineProps({
           'border-r-[red]': subscription.status !== 'ACTIVE',
         }"
       >
-        <div class="flex flex-col gap-y-4 items-start justify-between">
+        <div class="flex flex-col gap-y-2 items-start justify-between">
           <p class="flex items-center gap-x-2 text-xl font-bold mb-0">
             <span>רכב מספר</span>
             <span>{{ subscription.car }}({{ subscription.label }})</span>
@@ -37,7 +37,7 @@ const props = defineProps({
           <span class="text-[#4a74eb] text-base font-normal">{{ subscription.metering }}/{{ subscription.usage }}</span>
         </div>
       </div>
-      <div class="flex flex-col w-full gap-y-4 mt-2">
+      <div class="flex flex-col w-full gap-y-2 mt-2">
         <div class="flex items-center justify-between">
           <p class="text-base font-semibold mb-0">מסלול</p>
           <p class="mb-0">{{ subscription.plan.description }}</p>

@@ -33,9 +33,8 @@ const toggleSearch = () => {
 
 const serchClients = async () => {
   if (!searchString.value) return
-  await getClients({ search: searchString.value })
-  await getClientsSummary({ search: searchString.value })
-  console.log('f')
+  await getClients({ search: searchString.value.trim() })
+  await getClientsSummary({ search: searchString.value.trim() })
   if (!clients.value.accounts.edges.length) {
     searchString.value = ''
     return

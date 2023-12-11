@@ -6,7 +6,9 @@ export const useProductStore = defineStore({
 
   state: () => ({
     clientOrders: [] as any,
-    fullClientOrders: [] as any
+    fullClientOrders: [] as any,
+    hasNextPage: false as any,
+    endCursor: '' as any
   }),
 
   actions: {

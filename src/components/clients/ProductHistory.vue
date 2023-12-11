@@ -66,42 +66,43 @@ const closeDialog = () => {
       <VRow
         v-for="order in clientOrders"
         :key="(order as Order).node.id"
-        class="d-flex items-center justify-between p-x-2 mt-4 mb-2"
+        dir="rtl"
+        class="d-flex items-center justify-between p-x-2 mt-4 my-4 mr-2"
       >
-        <VCardText class="pt-0 w-[20%] pl-0"
+        <VCardText class="pt-0 w-[15%] pl-0 pb-0 pr-0 whitespace-nowrap"
+          ><div class="text-base font-bold text-right">
+            (x{{ (order as Order).node.quantity }}){{ (order as Order).node.product.name }}
+          </div></VCardText
+        >
+        <VCardText class="pt-0 w-[15%] pl-0 pb-0 pr-0 whitespace-nowrap ml-8"
+          ><div class="text-base font-bold text-right whitespace-nowrap">
+            {{ getFormattedDate((order as Order).node.account.createdOn) }}
+          </div></VCardText
+        >
+        <VCardText class="pt-0 w-[15%] pl-0 pb-0 pr-0 whitespace-nowrap ml-8"
+          ><div class="text-base font-bold text-right whitespace-nowrap">
+            {{ statusKey[(order as Order).node.status] }}
+          </div></VCardText
+        >
+        <VCardText class="pt-0 w-[15%] pl-0 pb-0 pr-0 whitespace-nowrap"
+          ><div class="text-base font-bold text-right">{{ (order as Order).node.pickedOn || '---' }}</div></VCardText
+        >
+        <VCardText class="pt-0 w-[15%] pl-0 pb-0 pr-0 whitespace-nowrap"
           ><div class="text-base font-bold text-right">
             <span>{{ (order as Order).node.pickedQuantity || 0 }}</span
             >/<span>{{ (order as Order).node.quantity || 0 }}</span>
           </div>
         </VCardText>
-        <VCardText class="pt-0 w-[20%] pl-0"
-          ><div class="text-base font-bold text-right">{{ (order as Order).node.pickedOn || '---' }}</div></VCardText
-        >
-        <VCardText class="pt-0 w-[20%] pl-0"
-          ><div class="text-base font-bold text-right whitespace-nowrap">
-            {{ statusKey[(order as Order).node.status] }}
-          </div></VCardText
-        >
-        <VCardText class="pt-0 w-[20%] pl-0"
-          ><div class="text-base font-bold text-right whitespace-nowrap">
-            {{ getFormattedDate((order as Order).node.account.createdOn) }}
-          </div></VCardText
-        >
-        <VCardText class="pt-0 w-[20%] pl-0"
-          ><div class="text-base font-bold text-right">
-            (x{{ (order as Order).node.quantity }}){{ (order as Order).node.product.name }}
-          </div></VCardText
-        >
       </VRow>
       <VBtn
         @click="openOrderDialog"
-        class="absolute bottom-0 right-[80%]"
+        class="absolute bottom-0 left-0 mr-2"
         >הצג הכל</VBtn
       >
     </div>
     <VDialog v-model="dialog">
       <VCard
-        class="max-h-[30rem] full-products-card max-w-[40%] px-4 py-4 fixed top-[50%] left-[50%] translate-x-[-50%]"
+        class="max-h-[20rem] full-products-card max-w-[60%] px-4 py-4 fixed top-[50%] left-[50%] translate-x-[-50%]"
       >
         <div
           v-for="(order, index) in fullClientOrders"

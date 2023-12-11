@@ -5,6 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import vuetify from 'vite-plugin-vuetify'
+import svgLoader from 'vite-svg-loader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -26,6 +27,7 @@ export default defineConfig({
       vueTemplate: true,
     }),
     graphql(),
+    svgLoader({})
   ],
   define: { 'process.env': {} },
   resolve: {

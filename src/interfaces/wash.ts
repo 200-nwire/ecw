@@ -9,6 +9,7 @@ export interface IWash {
       };
       car: string;
       washedOn: number;
+      image: string;
     };
   }
   

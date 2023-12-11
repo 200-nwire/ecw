@@ -65,8 +65,8 @@ const statusKey = {
     v-model:active="isLoading"
     :is-full-page="true"
   />
-  <div class="grid grid-cols-1 gap-2 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_1fr] 2xl:grid-cols-[1fr_2fr]">
-    <div class="hidden md:flex flex-col gap-y-2">
+  <div class="grid grid-cols-1 gap-2 lg:grid-cols-[1fr_1fr] 2xl:grid-cols-[1fr_2fr]">
+    <div class="flex flex-col gap-y-2 order-1">
       <WashHistory
         :washes="washes"
         :client-id="clientIdRef"
@@ -82,7 +82,7 @@ const statusKey = {
       />
     </div>
     <div
-      class="flex flex-col gap-y-2"
+      class="flex flex-col gap-y-2 lg:order-1 h-fit"
       v-if="display"
     >
       <ClientDetails :client="client" />

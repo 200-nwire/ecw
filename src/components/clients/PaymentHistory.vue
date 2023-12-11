@@ -58,22 +58,22 @@ const closeDialog = () => {
       <VRow
         v-for="payment in payments"
         :key="(payment as Payment).node.id"
-        class="d-flex items-center justify-between p-x-2 mt-4 mb-2"
+        class="d-flex items-center justify-between p-x-2 mt-4 my-4"
       >
-        <VCardText class="pt-0 w-[25%] pl-0"
+        <VCardText class="pt-0 w-[25%] pl-0 pb-0"
           ><div class="text-base font-bold text-right">
             {{ (payment as Payment).node.paymentMethod.cardNumber }}
           </div></VCardText
         >
-        <VCardText class="w-[25%] pl-0"
+        <VCardText class="w-[25%] pl-0 pb-0"
           ><div class="text-base font-bold text-right">{{ (payment as Payment).node.receipt }}</div></VCardText
         >
-        <VCardText class="w-[25%] pl-0"
+        <VCardText class="w-[25%] pl-0 pb-0"
           ><div class="text-base font-bold text-right">
             {{ getFormattedDate((payment as Payment).node.createdOn) }}
           </div></VCardText
         >
-        <VCardText class="w-[25%] pl-0"
+        <VCardText class="w-[25%] pl-0 pb-0"
           ><div class="text-base font-bold text-right">
             <span class="mr-2">{{ (payment as Payment).node.totalDue }}</span
             ><span>חיוב</span>
@@ -82,7 +82,7 @@ const closeDialog = () => {
       </VRow>
       <VBtn
         @click="openPaymentsDialog"
-        class="absolute bottom-0 right-[80%]"
+        class="absolute bottom-0 left-0 mr-1"
         >הצג הכל</VBtn
       >
     </div>
