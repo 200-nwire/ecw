@@ -101,128 +101,66 @@ const setFilters = async () => {
 </script>
 
 <template>
-  <loading
-    v-model:active="isLoading"
-    :is-full-page="true"
-  />
+  <loading v-model:active="isLoading" :is-full-page="true" />
   <InstantScroll :filters="clientFilters" />
-  <VCard class="pa-6 pb-6 mb-4">
-    <div class="flex flex-row-reverse gap-x-[30%] sm:items-center sm:justify-start sm:gap-x-[25%] mr-10">
-      <VCheckbox
-        @click="setTempClients"
-        class="whitespace-nowrap"
-        >לקוחות זמניים</VCheckbox
-      >
-      <VCheckbox
-        v-model="clientFilters.clientsWithSubscriptions"
-        class="whitespace-nowrap"
-        >לקוחות מנויים</VCheckbox
-      >
-      <VCheckbox
-        v-model="clientFilters.clientsWithPurchases"
-        class="whitespace-nowrap"
-        >לקוחות עם רכישות</VCheckbox
-      >
+  <VCard class="flex w-full pa-6 pb-6 mb-4 gap-4 flex-col flex-wrap">
+    <div class="flex gap-4 gap-y-4">
+      <VSelect :items="stations.map(station => {
+        return {
+          id: station.id,
+          name: station.name,
+        }
+      })
+        " v-model="clientFilters.stations" item-value="id" item-title="name" density="compact" chips label="סניף"
+        multiple></VSelect>
+      <VSelect :items="plans.map(plan => {
+        return {
+          id: plan.id,
+          description: plan.description,
+        }
+      })
+        " v-model="clientFilters.plans" item-value="id" item-title="description" chips density="compact" label="מסלול"
+        multiple></VSelect>
+      <VSelect :items="statuses.map(status => {
+        return {
+          id: status.id,
+          value: status.value,
+        }
+      })
+        " v-model="clientFilters.statuses" item-value="id" item-title="value" density="compact" chips label="סטטוס רכב"
+        multiple></VSelect>
+      <VSelect :items="sources.map(source => {
+        return {
+          id: source.id,
+          value: source.value,
+        }
+      })
+        " v-model="clientFilters.sources" item-value="id" item-title="value" chips density="compact" label="מקור הגעה"
+        multiple></VSelect>
     </div>
-    <div class="flex flex-col-reverse gap-y-3 sm:flex-row-reverse sm:items-center sm:justify-around gap-x-2 my-6">
+    <div class="flex gap-2 items-center justify-between py-4">
       <VMenu>
         <template v-slot:activator="{ props }">
-          <v-btn
-            color="primary"
-            v-bind="props"
-          >
-            תאריך
-          </v-btn>
+          <vue-date-picker :teleport="true" v-model="dateRange" model-type="timestamp" :range="true"
+            @update:model-value="setDate" />
         </template>
-        <VueDatePicker
-          v-model="dateRange"
-          model-type="timestamp"
-          :range="true"
-          @update:model-value="setDate"
-        />
       </VMenu>
-      <VSelect
-        :items="
-          stations.map(station => {
-            return {
-              id: station.id,
-              name: station.name,
-            }
-          })
-        "
-        v-model="clientFilters.stations"
-        item-value="id"
-        item-title="name"
-        density="compact"
-        chips
-        label="סניף"
-        multiple
-      ></VSelect>
-      <VSelect
-        :items="
-          plans.map(plan => {
-            return {
-              id: plan.id,
-              description: plan.description,
-            }
-          })
-        "
-        v-model="clientFilters.plans"
-        item-value="id"
-        item-title="description"
-        chips
-        density="compact"
-        label="מסלול"
-        multiple
-      ></VSelect>
-      <VSelect
-        :items="
-          statuses.map(status => {
-            return {
-              id: status.id,
-              value: status.value,
-            }
-          })
-        "
-        v-model="clientFilters.statuses"
-        item-value="id"
-        item-title="value"
-        density="compact"
-        chips
-        label="סטטוס רכב"
-        multiple
-      ></VSelect>
-      <VSelect
-        :items="
-          sources.map(source => {
-            return {
-              id: source.id,
-              value: source.value,
-            }
-          })
-        "
-        v-model="clientFilters.sources"
-        item-value="id"
-        item-title="value"
-        chips
-        density="compact"
-        label="מקור הגעה"
-        multiple
-      ></VSelect>
+      <VTextField v-model="clientFilters.search" placeholder="חיפוש" variant="outlined" density="compact" />
     </div>
-    <div class="flex flex-col-reverse gap-y-2 sm:flex-row-reverse items-center justify-between">
-      <VCardActions class="pb-0 pl-0">
-        <VBtn @click="resetFilters">אפס סינון</VBtn>
-        <VBtn @click="setFilters">עדכן עמוד</VBtn>
-      </VCardActions>
-      <div class="flex items-center justify-center w-full">
-        <VTextField
-          v-model="clientFilters.search"
-          placeholder="search"
-          variant="outlined"
-          density="compact"
-        />
-      </div>
+    <div class="flex flex-1 flex-wrap gap-8 ">
+      <VCheckbox @click="setTempClients" label="לקוחות זמניים"></VCheckbox>
+      <VCheckbox v-model="clientFilters.clientsWithSubscriptions" label="לקוחות מנויים"></VCheckbox>
+      <VCheckbox v-model="clientFilters.clientsWithPurchases" label="לקוחות עם רכישות"></VCheckbox>
+    </div>
+    <div class="flex items-center w-full flex-wrap justify-end">
+      <v-btn @click="setFilters">עדכן עמוד</v-btn>
+      <VBtn @click="resetFilters" variant="text">אפס סינון</VBtn>
     </div>
   </VCard>
 </template>
+
+<style lang="scss" scoped>
+.dp__main {
+  flex: 1;
+}
+</style>

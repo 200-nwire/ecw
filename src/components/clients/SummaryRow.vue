@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IClientSummary } from '@/interfaces/clientSummary'
+import type { IClientSummary } from '@/interfaces/clientSummary';
 
 const props = defineProps({
   clientsSummary: {
@@ -10,28 +10,29 @@ const props = defineProps({
 </script>
 
 <template>
-  <div
-    class="flex flex-wrap gap-y-3 items-center justify-between my-4 border-[1px] border-solid border-gray p-4 bg-white"
-  >
-    <div class="border-e-[9px] border-e-solid border-e-[red] pr-2">
-      <span class="mr-2">{{ (clientsSummary as IClientSummary).totalAccounts.Active }}</span
-      ><span>לקוח פעיל</span>
+  <div class="flex flex-wrap items-center gap-4 my-2">
+    <div class="border-r-[8px] border-r-solid border-r-[#12AAA3] flex gap-2 px-2">
+      <span>לקוח פעיל</span>
+      <span>({{ (clientsSummary as IClientSummary).totalAccounts.Active }})</span>
     </div>
-    <div class="border-e-[9px] border-e-solid border-e-[green] pr-2">
-      <span class="mr-2">{{ (clientsSummary as IClientSummary).totalAccounts.OnHold }}</span
-      ><span>לקוח בהשהייה</span>
+    <div class="border-r-[8px] border-r-solid border-r-[#FBE28A] flex gap-2 px-2">
+      <span>לקוח בהשהייה</span>
+      <span>({{ (clientsSummary as IClientSummary).totalAccounts.OnHold }})</span>
     </div>
-    <div class="border-e-[9px] border-e-solid border-e-[red] pr-2">
-      <span class="mr-2">{{ (clientsSummary as IClientSummary).totalSubscriptions.Active }}</span
-      ><span>רכב פעיל</span>
+    <div class="flex gap-2">
+      <v-icon icon="mdi-circle-medium" color="green"></v-icon>
+      <span>רכב פעיל</span>
+      <span>({{ (clientsSummary as IClientSummary).totalSubscriptions.Active }})</span>
     </div>
-    <div class="border-e-[9px] border-e-solid border-e-[yellow] pr-2">
-      <span class="mr-2">{{ (clientsSummary as IClientSummary).totalSubscriptions.Inactive }}</span
-      ><span>רכב מושהה</span>
+    <div class="flex gap-2">
+      <v-icon icon="mdi-circle-medium" color="yellow"></v-icon>
+      <span>רכב מושהה</span>
+      <span>({{ (clientsSummary as IClientSummary).totalSubscriptions.Inactive }})</span>
     </div>
-    <div class="border-e-[9px] border-e-solid border-e-[green] pr-2">
-      <span class="mr-2">{{ (clientsSummary as IClientSummary).totalSubscriptions.OnHold }}</span
-      ><span>רכב מבוטל</span>
+    <div class="flex gap-2">
+      <v-icon icon="mdi-circle-medium" color="red"></v-icon>
+      <span>רכב מבוטל</span>
+      <span>({{ (clientsSummary as IClientSummary).totalSubscriptions.OnHold }})</span>
     </div>
   </div>
 </template>
