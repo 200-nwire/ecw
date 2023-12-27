@@ -6,9 +6,9 @@ const theme: VuetifyOptions['theme'] = {
     light: {
       dark: false,
       colors: {
-        'primary': '#9155FD',
-        'secondary': '#8A8D93',
-        'on-secondary': '#fff',
+        'primary': '#4A74EB',
+        'secondary': '#FFF',
+        'on-secondary': '#FFF',
         'success': '#56CA00',
         'info': '#16B1FF',
         'warning': '#FFB400',
@@ -16,8 +16,9 @@ const theme: VuetifyOptions['theme'] = {
         'on-primary': '#FFFFFF',
         'on-success': '#FFFFFF',
         'on-warning': '#FFFFFF',
-        'background': '#F4F5FA',
+        'background': '#F8FBFF',
         'on-background': '#3A3541',
+        'cards-background': '#FFF',
         'on-surface': '#3A3541',
         'grey-50': '#FAFAFA',
         'grey-100': '#F0F2F8',
@@ -32,6 +33,9 @@ const theme: VuetifyOptions['theme'] = {
         'perfect-scrollbar-thumb': '#DBDADE',
         'skin-bordered-background': '#fff',
         'skin-bordered-surface': '#fff',
+        'green': '#12AAA3',
+        'yellow': '#FBE28A',
+        'red': '#FF3150'
       },
 
       variables: {

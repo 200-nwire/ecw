@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import logo from '@images/logo.svg?raw'
-import type { Component } from 'vue'
-import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { useDisplay } from 'vuetify'
+import logo from '@images/logo.svg?raw';
+import type { Component } from 'vue';
+import { PerfectScrollbar } from 'vue3-perfect-scrollbar';
+import { useDisplay } from 'vuetify';
 
 interface Props {
   tag?: string | Component
@@ -90,8 +90,8 @@ const handleNavScroll = (evt: Event) => {
 </template>
 
 <style lang="scss">
-@use '@configured-variables' as variables;
-@use '@layouts/styles/mixins';
+@use "@configured-variables" as variables;
+@use "@layouts/styles/mixins";
 
 // 👉 Vertical Nav
 .layout-vertical-nav {
@@ -100,7 +100,8 @@ const handleNavScroll = (evt: Event) => {
   display: flex;
   flex-direction: column;
   block-size: 100%;
-  inline-size: variables.$layout-vertical-nav-width;
+
+  // inline-size: variables.$layout-vertical-nav-width;
   inset-block-start: 0;
   inset-inline-start: 0;
   transition: transform 0.25s ease-in-out, inline-size 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
@@ -144,14 +145,14 @@ const handleNavScroll = (evt: Event) => {
   }
 
   // 👉 Overlay nav
-  &.overlay-nav {
-    &:not(.visible) {
-      transform: translateX(-#{variables.$layout-vertical-nav-width});
+  // &.overlay-nav {
+  //   &:not(.visible) {
+  //     transform: translateX(-#{variables.$layout-vertical-nav-width});
 
-      @include mixins.rtl {
-        transform: translateX(variables.$layout-vertical-nav-width);
-      }
-    }
-  }
+  //     @include mixins.rtl {
+  //       transform: translateX(variables.$layout-vertical-nav-width);
+  //     }
+  //   }
+  // }
 }
 </style>

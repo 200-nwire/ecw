@@ -110,38 +110,18 @@ const sortedClientActions = (accountControl: object) => {
 </script>
 
 <template>
-  <loading
-    v-model:active="isLoading"
-    :is-full-page="true"
-  />
-  <VCard
-    class="pb-6 pt-0 max-h-[70%] overflow-auto control-for-account"
-    @scroll="handleScroll"
-  >
-    <div
-      class="flex px-12 items-center justify-between w-full sticky top-[0%] bg-white py-6 left=[2%]"
-      dir="rtl"
-    >
+  <loading v-model:active="isLoading" :is-full-page="true" />
+  <VCard class="pb-6 pt-0 max-h-[70%] overflow-auto control-for-account" @scroll="handleScroll">
+    <div class="flex px-12 items-center justify-between w-full sticky top-[0%] bg-white py-6 left=[2%]" dir="rtl">
       <h3 class="text-xl font-bold text-[#2087e3]">פעולות לקוח</h3>
-      <VCheckbox
-        v-model="showWashes"
-        class="whitespace-nowrap"
-        >הצג שטיפות</VCheckbox
-      >
+      <VCheckbox v-model="showWashes" class="whitespace-nowrap">הצג שטיפות</VCheckbox>
     </div>
-    <div
-      v-for="(actions, key) in sortedClientActions(props.accountControl)"
-      :key="key"
-      class="flex flex-col items-end px-14"
-    >
-      <div class="flex flex-col items-end justify-start">
+    <div v-for="(actions, key) in sortedClientActions(props.accountControl)" :key="key" class="flex flex-col px-14">
+      <div class="flex flex-col justify-start">
         <span class="text-base font-normal text-[#3e97ff]">
           {{ key }}
         </span>
-        <div
-          v-for="action in actions"
-          class="flex flex-col items-end pr-4 my-2 border-r-[1px] border-dashed border-black"
-        >
+        <div v-for="action in actions" class="flex flex-col pr-4 my-2 border-r-[1px] border-dashed border-black">
           <span class="font-semibold">{{ getFormattedTime(action.node.createdOn) }}</span>
           <span class="text-base font-normal">{{ actionMap[action.node.name] }}</span>
         </div>

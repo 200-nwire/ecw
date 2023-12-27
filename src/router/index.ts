@@ -8,10 +8,10 @@ import { createRouter, createWebHistory } from 'vue-router';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/dashboard' },
+    { path: '/', redirect: '/clients' },
     {
       path: '/',
-      component: () => import('../layouts/default.vue'),
+      component: () => import('../layouts/main.vue'),
       children: [
         {
           path: 'dashboard',
@@ -20,6 +20,11 @@ const router = createRouter({
         {
           path: 'clients',
           component: () => import('../pages/clients.vue'),
+          meta: { requiresAuth: true },
+        },
+        {
+          path: 'stations',
+          component: () => import('../pages/stations.vue'),
           meta: { requiresAuth: true },
         },
         {
@@ -54,7 +59,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('../layouts/blank.vue'),
+      // component: () => import('../layouts/blank.vue'),
       children: [
         {
           path: 'login',

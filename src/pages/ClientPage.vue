@@ -61,41 +61,19 @@ const statusKey = {
 </script>
 
 <template>
-  <loading
-    v-model:active="isLoading"
-    :is-full-page="true"
-  />
-  <div class="grid grid-cols-1 gap-2 lg:grid-cols-[1fr_1fr] 2xl:grid-cols-[1fr_2fr]">
-    <div class="flex flex-col gap-y-2 order-1">
-      <WashHistory
-        :washes="washes"
-        :client-id="clientIdRef"
-      />
-      <PaymentHistory
-        :payments="payments"
-        :client-id="clientIdRef"
-      />
-      <ProductHistory
-        :client-orders="clientOrders"
-        :status-key="statusKey"
-        :client-id="clientIdRef"
-      />
-    </div>
-    <div
-      class="flex flex-col gap-y-2 lg:order-1 h-fit"
-      v-if="display"
-    >
+  <loading v-model:active="isLoading" :is-full-page="true" />
+  <div class="grid grid-cols-1 gap-2 lg:grid-cols-[1fr_1fr] 2xl:grid-cols-[2fr_1fr] w-full">
+    <div class="flex flex-col gap-y-2 h-fit" v-if="display">
       <ClientDetails :client="client" />
       <SubscriptionDetails :client="client" />
-      <div
-        class="col-span-2"
-        v-if="accountControl"
-      >
-        <AccountControl
-          :accountControl="accountControl"
-          :client-id="clientIdRef"
-        />
+      <div class="col-span-2" v-if="accountControl">
+        <AccountControl :accountControl="accountControl" :client-id="clientIdRef" />
       </div>
+    </div>
+    <div class="flex flex-col gap-y-2">
+      <WashHistory :washes="washes" :client-id="clientIdRef" />
+      <PaymentHistory :payments="payments" :client-id="clientIdRef" />
+      <ProductHistory :client-orders="clientOrders" :status-key="statusKey" :client-id="clientIdRef" />
     </div>
   </div>
 </template>

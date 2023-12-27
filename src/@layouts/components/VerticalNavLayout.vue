@@ -1,5 +1,4 @@
 <script lang="ts">
-import VerticalNav from '@layouts/components/VerticalNav.vue'
 import { useDisplay } from 'vuetify'
 
 export default defineComponent({
@@ -18,10 +17,10 @@ export default defineComponent({
     return () => {
       // 👉 Vertical nav
       const verticalNav = h(
-        VerticalNav,
+        // VerticalNav,
         { isOverlayNavActive: isOverlayNavActive.value, toggleIsOverlayNavActive },
         {
-          'nav-header': () => slots['vertical-nav-header']?.(),
+          // 'nav-header': () => slots['vertical-nav-header']?.(),
           'before-nav-items': () => slots['before-vertical-nav-items']?.(),
           default: () => slots['vertical-nav-content']?.(),
           'after-nav-items': () => slots['after-vertical-nav-items']?.(),
@@ -67,7 +66,7 @@ export default defineComponent({
             route.meta.layoutWrapperClasses,
           ],
         },
-        [verticalNav, h('div', { class: 'layout-content-wrapper' }, [navbar, main, footer]), layoutOverlay],
+        [h('div', { class: 'layout-content-wrapper' }, [navbar, main, footer]), layoutOverlay],
       )
     }
   },
@@ -75,9 +74,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@use '@configured-variables' as variables;
-@use '@layouts/styles/placeholders';
-@use '@layouts/styles/mixins';
+@use "@configured-variables" as variables;
+@use "@layouts/styles/placeholders";
+@use "@layouts/styles/mixins";
 
 .layout-wrapper.layout-nav-type-vertical {
   // TODO(v2): Check why we need height in vertical nav & min-height in horizontal nav
@@ -145,9 +144,9 @@ export default defineComponent({
     }
   }
 
-  &:not(.layout-overlay-nav) .layout-content-wrapper {
-    padding-inline-start: variables.$layout-vertical-nav-width;
-  }
+  // &:not(.layout-overlay-nav) .layout-content-wrapper {
+  //   padding-inline-start: variables.$layout-vertical-nav-width;
+  // }
 
   // Adjust right column pl when vertical nav is collapsed
   &.layout-vertical-nav-collapsed .layout-content-wrapper {

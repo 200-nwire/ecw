@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useClientStore } from '@/store/clients'
-import { ref } from 'vue'
+import { useClientStore } from '@/store/clients';
+import { ref } from 'vue';
 
-import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/css/index.css'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 
 const props = defineProps({
   filters: {
@@ -46,18 +46,10 @@ const pageScroll = async () => {
 </script>
 
 <template>
-  <loading
-    v-model:active="isLoading"
-    :is-full-page="true"
-  />
+  <loading v-model:active="isLoading" :is-full-page="true" />
   <div
     class="rounded-[50%] cursor-pointer fixed bottom-[5%] right-[5%] bg-[lightblue] h-[50px] w-[50px] z-10 flex items-center justify-center"
-    :class="{
-      'rotate-90': scrollDirectionDown,
-      'rotate-[-90deg]': !scrollDirectionDown,
-    }"
-    @click="pageScroll"
-  >
-    ->
+    @click="pageScroll">
+    <v-icon :icon="scrollDirectionDown ? 'mdi-arrow-down' : 'mdi-arrow-up'"></v-icon>
   </div>
 </template>
