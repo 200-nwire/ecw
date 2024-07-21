@@ -1,6 +1,6 @@
 export interface IControl {
-    node: {
-        id?: string;
-        createdOn: string;
-    }
+  node: {
+    id?: string
+    createdOn: string
   }
+}
