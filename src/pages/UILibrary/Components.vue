@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import BaseInput from '@/components/BaseInput/BaseInput.vue'
 import SearchInput from '@/components/SearchInput.vue'
-import { Ellipsis, AlarmClockCheck, AlignLeft, Cctv } from 'lucide-vue-next'
-import { ref, onMounted } from 'vue'
+import { AlarmClockCheck, Cctv } from 'lucide-vue-next'
+import { ref } from 'vue'
 
 const textValue = ref('rotem')
 

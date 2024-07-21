@@ -18,22 +18,11 @@
         <Camera :size="16" />
       </template>
       <template #preview="slotProps">
-        rotem
-        <!-- <img
+        <img
           :src="imageSrc"
           alt="preview"
           :style="slotProps.style"
-        /> -->
-        <!-- <div
-        v-if="!imageSrc"
-        class="h-6 w-6 bg-base-white"
-      >rotem</div> -->
-        <!-- <img
-        v-else
-        :src="imageSrc"
-        alt="preview"
-        :style="slotProps.style"
-      /> -->
+        />
       </template>
     </Image>
   </div>

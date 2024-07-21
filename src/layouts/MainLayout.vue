@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import ScrollableContainer from '@/components/ScrollableContainer.vue'
+// import ScrollableContainer from '@/components/ScrollableContainer.vue'
 import { useSlots } from 'vue'
 
 const slots = useSlots()

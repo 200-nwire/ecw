@@ -9,8 +9,7 @@
           size="small"
           severity="neutral"
           text
-          ><template #icon>
-            <X :size="20" /> </template
+          ><template #icon> <X :size="20" /> </template
         ></Button>
       </div>
     </template>
@@ -93,7 +92,7 @@
 import { computed, ref } from 'vue'
 import { Info } from 'lucide-vue-next'
 import { X } from 'lucide-vue-next'
-import { getFormattedDate, getFormattedTime } from '@/composables/useDate'
+import { getFormattedDate } from '@/composables/useDate'
 import BaseInput from '@/components/BaseInput/BaseInput.vue'
 import { orderBy } from 'lodash'
 

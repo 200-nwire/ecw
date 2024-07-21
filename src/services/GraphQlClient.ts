@@ -1,5 +1,5 @@
 import { useAuth } from '@/composables/useAuth'
-import { auth, fireBaseUser } from '@/Firebase'
+import { fireBaseUser } from '@/Firebase'
 import {
   ApolloClient,
   ApolloLink,
@@ -87,7 +87,7 @@ export const resetClientStore = () => {
 const errorLink = ApolloLink.from([
   (operation, forward) =>
     forward(operation).map(response => {
-      if (response.errors) {
+      if ('errors' in response && response.errors) {
         // Global error handling
         console.error('GraphQL Errors:', response.errors)
         if (response.errors.find(error => error.message === 'Not Authorised!')) {

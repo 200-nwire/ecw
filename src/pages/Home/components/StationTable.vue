@@ -78,7 +78,7 @@
             :header="$t('stations.table.headers.products')"
             style="min-width: 76px"
           >
-            <template #body="{ data }">
+            <template>
               <ShoppingBag :size="16" />
             </template>
             <template #loading>
@@ -204,7 +204,7 @@ const SubscriptionStatus = {
 }
 
 const tableRef = ref<HTMLElement | null>(null)
-const tableRect = ref<DOMRect | null>(null)
+const tableRect = ref(null as any)
 
 onMounted(async () => {
   nextTick(() => {

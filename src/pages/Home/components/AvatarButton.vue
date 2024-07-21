@@ -34,15 +34,13 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronDown, LogOut } from 'lucide-vue-next'
+import { ChevronDown } from 'lucide-vue-next'
 import { ref } from 'vue'
 import { useAuth } from '@/composables/useAuth'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const { logout } = useAuth()
-
-const props = defineProps({})
 
 const menu = ref()
 const items = ref([
