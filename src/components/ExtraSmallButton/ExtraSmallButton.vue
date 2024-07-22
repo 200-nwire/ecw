@@ -13,11 +13,7 @@
   </div>
 </template>
 
-<script
-  setup
-  lang="ts"
->
-
+<script setup lang="ts">
 const preset = {
   root: ({ props, context, parent }) => ({
     class: [
@@ -28,13 +24,11 @@ const preset = {
 
       {
         '!rounded-xs': !props.rounded && props.size === 'small',
-      }
+      },
     ],
   }),
   label: ({ props }) => ({
-    class: [
-      'text-body-1',
-    ]
+    class: ['text-body-1'],
   }),
-};
+}
 </script>

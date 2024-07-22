@@ -172,7 +172,7 @@ import { bgColors, textColors } from '@/theme/Colors'
 import StationDetailsDrawer from '@/pages/Home/components/Stations/StationDetailsDrawer.vue'
 import SearchInput from '@/components/Input/SearchInput.vue'
 import { useDebounceFn } from '@vueuse/core'
-import ExtraSmallButton from '@/components/ExtraSmallButton/ExtraSmallButton.vue';
+import ExtraSmallButton from '@/components/ExtraSmallButton/ExtraSmallButton.vue'
 
 type View = 'stats' | 'station'
 

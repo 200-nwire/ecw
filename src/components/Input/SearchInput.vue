@@ -17,19 +17,19 @@
 </template>
 
 <script setup lang="ts">
-import { Search } from 'lucide-vue-next';
-import { ref } from 'vue';
-import { preset } from './InputPreset';
-import type { InputStyle } from './InputPreset';
-import type { PropType } from 'vue';
+import { Search } from 'lucide-vue-next'
+import { ref } from 'vue'
+import { preset } from './InputPreset'
+import type { InputStyle } from './InputPreset'
+import type { PropType } from 'vue'
 
 defineProps({
   rounded: Boolean,
   style: {
     type: String as PropType<InputStyle>,
-    default: 'white'
-  }
+    default: 'white',
+  },
 })
 
-const value = ref(null);
+const value = ref(null)
 </script>
