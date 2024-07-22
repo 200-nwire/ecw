@@ -16,7 +16,7 @@ interface Edge {
 }
 
 union Payload =
-    GenericEventData
+  | GenericEventData
   | ItemChangedData
   | NoteAddedData
   | PaymentData
@@ -350,7 +350,7 @@ type Notification {
   validityHours: Int
 }
 
-type Pick{
+type Pick {
   quantity: Int
   pickedIn: Station
   pickedOn: Timestamp
@@ -372,7 +372,7 @@ type Order {
   status: OrderStatus
   totalDue: Float
   pickedQuantity: Int
-  picks:[Pick]
+  picks: [Pick]
 }
 
 type OrderConnection implements Connection {
@@ -1191,9 +1191,9 @@ input openingHoursInput {
 }
 
 input AdvertisesInput {
-    adImageUrl: String
-    itemId: String
-    enabled: Boolean
+  adImageUrl: String
+  itemId: String
+  enabled: Boolean
 }
 
 "The javascript `Date` as integer. Type represents date and time as number of milliseconds from start of UNIX epoch."

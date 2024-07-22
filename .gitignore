@@ -8,13 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-.DS_Store
 dist
 dist-ssr
 *.local
-
-/cypress/videos/
-/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
@@ -23,12 +19,10 @@ dist-ssr
 !.vscode/*.code-snippets
 !.vscode/tours
 .idea
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.yarn
 .env.development
-# iconify dist files
-src/@iconify/*.js

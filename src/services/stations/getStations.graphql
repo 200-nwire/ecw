@@ -1,8 +1,9 @@
-query stations {
-  stations {
+query stations($stationId: ID) {
+  stations(id: $stationId) {
     id
     createdOn
     name
+    cleanerCode
     location {
       address
       lat

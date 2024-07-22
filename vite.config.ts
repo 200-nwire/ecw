@@ -1,25 +1,23 @@
-import graphql from '@rollup/plugin-graphql'
-import vue from '@vitejs/plugin-vue'
-import { fileURLToPath } from 'node:url'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
-import vuetify from 'vite-plugin-vuetify'
+import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'url'
+import AutoImport from 'unplugin-auto-import/vite'
+import graphql from '@rollup/plugin-graphql'
+import path from 'path'
+import Components from 'unplugin-vue-components/vite'
 import svgLoader from 'vite-svg-loader'
+import vueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 3000,
+  },
   plugins: [
     vue(),
-
-    // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
-    vuetify({
-      styles: {
-        configFile: 'src/styles/variables/_vuetify.scss',
-      },
-    }),
+    svgLoader(),
     Components({
-      dirs: ['src/@core/components'],
+      dirs: ['src'],
       dts: true,
     }),
     AutoImport({
@@ -27,28 +25,17 @@ export default defineConfig({
       vueTemplate: true,
     }),
     graphql(),
-    svgLoader({})
+    vueI18nPlugin({
+      include: [path.resolve(__dirname, './locales/**')],
+    }),
   ],
   define: { 'process.env': {} },
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@core': fileURLToPath(new URL('./src/@core', import.meta.url)),
-      '@layouts': fileURLToPath(new URL('./src/@layouts', import.meta.url)),
-      '@images': fileURLToPath(new URL('./src/assets/images/', import.meta.url)),
-      '@styles': fileURLToPath(new URL('./src/styles/', import.meta.url)),
-      '@configured-variables': fileURLToPath(new URL('./src/styles/variables/_template.scss', import.meta.url)),
-      '@axios': fileURLToPath(new URL('./src/plugins/axios', import.meta.url)),
-      'apexcharts': fileURLToPath(new URL('node_modules/apexcharts-clevision', import.meta.url)),
-    },
-  },
   build: {
     chunkSizeWarningLimit: 5000,
   },
-  optimizeDeps: {
-    exclude: ['vuetify'],
-    entries: [
-      './src/**/*.vue',
-    ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
 })

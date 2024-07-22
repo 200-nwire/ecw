@@ -20,11 +20,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
-  plugins: [
-    'vue',
-    '@typescript-eslint',
-    'regex',
-  ],
+  plugins: ['vue', '@typescript-eslint', 'regex'],
   ignorePatterns: ['src/@iconify/*.js', 'node_modules', 'dist', '*.d.ts'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -34,15 +30,18 @@ module.exports = {
     'comma-spacing': ['error', { before: false, after: true }],
     'key-spacing': ['error', { afterColon: true }],
 
-    'vue/first-attribute-linebreak': ['error', {
-      singleline: 'beside',
-      multiline: 'below',
-    }],
+    'vue/first-attribute-linebreak': [
+      'error',
+      {
+        singleline: 'beside',
+        multiline: 'below',
+      },
+    ],
 
     'antfu/top-level-function': 'off',
 
     // indentation (Already present in TypeScript)
-    'indent': ['error', 2],
+    indent: ['error', 2],
 
     // Enforce trailing comma (Already present in TypeScript)
     'comma-dangle': ['error', 'always-multiline'],
@@ -54,7 +53,7 @@ module.exports = {
     'max-len': 'off',
 
     // we don't want it
-    'semi': ['error', 'never'],
+    semi: ['error', 'never'],
 
     // add parens ony when required in arrow function
     'arrow-parens': ['error', 'as-needed'],
@@ -109,15 +108,18 @@ module.exports = {
     ],
 
     // ignore virtual files
-    'import/no-unresolved': [2, {
-      ignore: [
-        '~pages$',
-        'virtual:generated-layouts',
+    'import/no-unresolved': [
+      2,
+      {
+        ignore: [
+          '~pages$',
+          'virtual:generated-layouts',
 
-        // Ignore vite's ?raw imports
-        '.*\?raw',
-      ],
-    }],
+          // Ignore vite's ?raw imports
+          '.*?raw',
+        ],
+      },
+    ],
 
     // Thanks: https://stackoverflow.com/a/63961972/10796681
     'no-shadow': 'off',
@@ -133,11 +135,13 @@ module.exports = {
     'vue/block-tag-newline': 'error',
     'vue/component-api-style': 'error',
     'vue/component-name-in-template-casing': ['error', 'PascalCase', { registeredComponentsOnly: false }],
-    'vue/custom-event-name-casing': ['error', 'camelCase', {
-      ignores: [
-        '/^(click):[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/',
-      ],
-    }],
+    'vue/custom-event-name-casing': [
+      'error',
+      'camelCase',
+      {
+        ignores: ['/^(click):[a-z]+((d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/'],
+      },
+    ],
     'vue/define-macros-order': 'error',
     'vue/html-comment-content-newline': 'error',
     'vue/html-comment-content-spacing': 'error',
@@ -159,9 +163,12 @@ module.exports = {
     'vue/prefer-true-attribute-shorthand': 'error',
     'vue/v-on-function-call': 'error',
     'vue/no-restricted-class': ['error', '/^(p|m)(l|r)-/'],
-    'vue/valid-v-slot': ['error', {
-      allowModifiers: true,
-    }],
+    'vue/valid-v-slot': [
+      'error',
+      {
+        allowModifiers: true,
+      },
+    ],
 
     // -- Extension Rules
     'vue/no-irregular-whitespace': 'error',
@@ -190,12 +197,12 @@ module.exports = {
         {
           regex: '@/assets/images',
           replacement: '@images',
-          message: 'Use \'@images\' path alias for image imports',
+          message: "Use '@images' path alias for image imports",
         },
         {
           regex: '@/styles',
           replacement: '@styles',
-          message: 'Use \'@styles\' path alias for importing styles from \'src/styles\'',
+          message: "Use '@styles' path alias for importing styles from 'src/styles'",
         },
 
         // {
@@ -206,22 +213,23 @@ module.exports = {
 
         {
           regex: '@core/\\w',
-          message: 'You can\'t use @core when you are in @layouts module',
+          message: "You can't use @core when you are in @layouts module",
           files: {
             inspect: '@layouts/.*',
           },
         },
         {
           regex: 'useLayouts\\(',
-          message: '`useLayouts` composable is only allowed in @layouts & @core directory. Please use `useThemeConfig` composable instead.',
+          message:
+            '`useLayouts` composable is only allowed in @layouts & @core directory. Please use `useThemeConfig` composable instead.',
           files: {
             inspect: '^(?!.*(@core|@layouts)).*',
           },
         },
         {
-          regex: 'import axios from \'axios\'',
-          replacement: 'import axios from \'@axios\'',
-          message: 'Use axios instances created in \'src/plugin/axios.ts\' instead of unconfigured axios',
+          regex: "import axios from 'axios'",
+          replacement: "import axios from '@axios'",
+          message: "Use axios instances created in 'src/plugin/axios.ts' instead of unconfigured axios",
           files: {
             ignore: '^.*plugins/axios.ts.*',
           },
@@ -229,7 +237,7 @@ module.exports = {
       ],
 
       // Ignore files
-      '\.eslintrc\.js',
+      '.eslintrc.js',
     ],
   },
   settings: {

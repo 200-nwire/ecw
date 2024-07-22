@@ -1,15 +1,23 @@
 export interface IWash {
-    node: {
-      id?: string;
-      subscription: {
-        station: {
-          name: string;
-        };
-        expiresOn: number;
-      };
-      car: string;
-      washedOn: number;
-      image: string;
-    };
+  id?: string
+  subscription: {
+    plan?: {
+      description: string
+    }
+    station: {
+      name: string
+    }
+    expiresOn: number
   }
-  
+  car: string
+  washedOn: number
+  image: string
+  account: {
+    profile: {
+      name: string
+    }
+  }
+  today: number
+  total: number
+  status: string
+}

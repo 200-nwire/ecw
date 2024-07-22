@@ -1,16 +1,11 @@
-import { defineStore } from 'pinia';
+import { auth } from '@/Firebase'
+import { defineStore } from 'pinia'
+import { computed } from 'vue'
 
-export const useAccountStore = defineStore({
-  id: 'account',
+export const useAccount = defineStore('account', () => {
+  const user = computed(() => auth.currentUser)
 
-  state: () => ({
-    isAuthenticated: localStorage.getItem('isAuthenticated') === 'true' || false,
-  }),
-
-  actions: {
-    setAuthState(state: boolean) {
-        this.isAuthenticated = state
-        localStorage.setItem('isAuthenticated', state.toString())
-    }
+  return {
+    user,
   }
-});
+})

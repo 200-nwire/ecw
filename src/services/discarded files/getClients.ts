@@ -76,4 +76,4 @@ query clients(
     }
   }
 }
-`;
+`

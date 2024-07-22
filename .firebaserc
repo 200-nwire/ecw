@@ -1,0 +1,30 @@
+{
+  "projects": {
+    "dev": "express-city-wash-dev",
+    "stage": "express-city-wash-stage",
+    "prod": "express-city-wash"
+  },
+  "targets": {
+    "express-city-wash-dev": {
+      "hosting": {
+        "crm": [
+          "express-city-wash-crm-dev"
+        ]
+      }
+    },
+    "express-city-wash-stage": {
+      "hosting": {
+        "crm": [
+          "express-city-wash-crm-stage"
+        ]
+      }
+    },
+    "express-city-wash": {
+      "hosting": {
+        "crm": [
+          "express-city-wash-crm"
+        ]
+      }
+    }
+  }
+}

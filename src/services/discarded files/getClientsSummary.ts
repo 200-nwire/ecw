@@ -1,5 +1,4 @@
-export const getClientsSummary = 
-`query clients(
+export const getClientsSummary = `query clients(
     $after: Cursor
     $search: String
     $stations: [ID]

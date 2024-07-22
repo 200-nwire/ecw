@@ -1,71 +1,41 @@
 {
+  "files": ["src/assets/custom.d.ts"],
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "target": "esnext",
-    "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": true,
     "strict": true,
     "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@layouts/*": [
-        "src/@layouts/*"
-      ],
-      "@layouts": [
-        "src/@layouts"
-      ],
-      "@core/*": [
-        "src/@core/*"
-      ],
-      "@core": [
-        "src/@core"
-      ],
-      "@images/*": [
-        "src/assets/images/*"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ],
+    "lib": ["esnext", "dom"],
+    "types": ["vite/client", "node", "vite-svg-loader"],
+    "incremental": false,
     "skipLibCheck": true,
-    "types": [
-      "vite/client",
-      "vite-plugin-pages/client",
-      "vite-plugin-vue-layouts/client",
-      "vite-svg-loader"
-    ]
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "verbatimModuleSyntax": false,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": false,
+    "outDir": "dist",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@public/*": ["./public/*"]
+    }
   },
-  "files": [
-    "graphql.d.ts"
-  ],
   "include": [
-    "vite.config.*",
+    "./src/**/*.ts",
+    "./src/**/*.d.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.vue",
+    "types.d.ts",
+    "shims-vue.d.ts",
     "env.d.ts",
-    "shims.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "themeConfig.ts",
-    "auto-imports.d.ts",
-    "components.d.ts"
+    "./docs/**/*.mts",
+    "./docs/**/*.ts"
   ],
-  "exclude": [
-    "dist",
-    "node_modules",
-    "src/@iconify/*"
-  ]
+  "exclude": ["node_modules", "**/node_modules", "src/components/preview", "src/index.ts", "components.d.ts", "dist"]
 }

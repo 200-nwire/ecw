@@ -1,0 +1,66 @@
+{
+  "general": {
+    "clients": "לקוחות",
+    "stations": "סניפים",
+    "station": "סניף",
+    "days-of-week": {
+      "1": "ראשון",
+      "2": "שני",
+      "3": "שלישי",
+      "4": "רביעי",
+      "5": "חמישי",
+      "6": "שישי",
+      "7": "שבת"
+    },
+    "closed": "סגור"
+  },
+  "headbar": {
+    "navagation": {
+      "clients": "@:general.clients",
+      "stations": "@:general.stations"
+    },
+    "search": "חיפוש מהיר של לקוח",
+    "new-customer": "הוספת לקוח"
+  },
+  "login": {
+    "email": "כתובת דוא\"ל",
+    "password": "סיסמא",
+    "login": "כניסה לחשבון",
+    "invalid-message": "שם משתמש ו/או סיסמא אינם נכונים"
+  },
+  "logout": "התנתק",
+  "stations": {
+    "stations-sidebar": {
+      "stations-stats": "נתוני @:general.stations",
+      "stations": "@:general.stations {'('}{count}{')'}"
+    },
+    "station-details": {
+      "station-name": "@:general.station {name}",
+      "watch-rank-table": "צפייה בטבלת הדירוגים",
+      "vacuum": "שואב אבק",
+      "created-on": "תאריך הקמה",
+      "description": "תאור לסניף",
+      "manager": "מנהל תחנה",
+      "latitude": "Lat",
+      "longtitude": "Long",
+      "open-hours": "שעות פעילות"
+    },
+    "table": {
+      "export": "ייצוא",
+      "headers": {
+        "customer-name": "כינוי לקוח",
+        "subscription-number": "מנוי",
+        "time": "שעה",
+        "date": "תאריך",
+        "total-washes": "סך חודש",
+        "products": "מוצרים",
+        "origin-station": "תחנת מקור",
+        "washed-at": "נשטף ב",
+        "subscription-type": "סוג מנוי",
+        "image": "תמונה"
+      },
+      "empty-message": "לא נכנסו שטיפות עדיין"
+    },
+    "search-in-station": "חיפוש מספר רכב"
+  }
+}

@@ -1,0 +1,11 @@
+query washes($station: ID, $dates: RangeFilter, $search: String) {
+  washes(search: $search, filter: { station: $station, dates: $dates }) {
+    summary {
+      totalActive
+      totalCanceled
+      totalGuests
+      totalUnpaid
+      totalWashed
+    }
+  }
+}
