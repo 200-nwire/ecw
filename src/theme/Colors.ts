@@ -235,6 +235,7 @@ export const borderColors = {
   success: {
     DEFAULT: pallete.green[600],
     dark: pallete.green[500],
+    light: pallete.green[400],
   },
 
   warning: {

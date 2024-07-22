@@ -93,7 +93,7 @@ import { computed, ref } from 'vue'
 import { Info } from 'lucide-vue-next'
 import { X } from 'lucide-vue-next'
 import { getFormattedDate } from '@/composables/useDate'
-import BaseInput from '@/components/BaseInput/BaseInput.vue'
+import BaseInput from '@/components/Input/BaseInput.vue'
 import { orderBy } from 'lodash'
 
 const props = defineProps({

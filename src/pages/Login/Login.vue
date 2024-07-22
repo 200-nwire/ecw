@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseInput from '@/components/BaseInput/BaseInput.vue'
+import BaseInput from '@/components/Input/BaseInput.vue'
 import router from '@/router'
 import { ref } from 'vue'
 import logo from '@/assets/logo.png'

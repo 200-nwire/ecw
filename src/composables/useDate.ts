@@ -3,7 +3,7 @@ import heLocale from 'date-fns/locale/he'
 
 export function getFormattedDate(timestamp: string | number, showTime = false) {
   const date = new Date(timestamp)
-  const formattedDate = format(date, 'dd.MM.yyyy', { locale: heLocale })
+  const formattedDate = format(date, 'dd.MM.yyyy', { locale: heLocale as any })
 
   if (!showTime) return formattedDate
 

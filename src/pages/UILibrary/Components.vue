@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BaseInput from '@/components/BaseInput/BaseInput.vue'
-import SearchInput from '@/components/SearchInput.vue'
+import BaseInput from '@/components/Input/BaseInput.vue'
+import SearchInput from '@/components/Input/SearchInput.vue'
 import { AlarmClockCheck, Cctv } from 'lucide-vue-next'
 import { ref } from 'vue'
 

@@ -32,5 +32,5 @@
 <script setup lang="ts">
 import AvatarButton from '@/pages/Home/components/AvatarButton.vue'
 import NavBarButton from '@/pages/Home/components/NavBarButton.vue'
-import SearchInput from '@/components/SearchInput.vue'
+import SearchInput from '@/components/Input/SearchInput.vue'
 </script>

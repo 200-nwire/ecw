@@ -11,8 +11,6 @@ export default {
       // Sizes & Spacing
       'leading-[normal]',
       {
-        'px-7 py-2 min-w-[5.4rem]': props.size === 'xsmall' && props.label != null,
-        'p-2': props.size === 'xsmall' && props.label == null,
         'px-7 py-4 min-w-[6rem]': props.size === 'small' && props.label != null,
         'p-3': props.size === 'small' && props.label == null,
         'px-7 py-5 min-w-[6.5rem]': props.size == null && props.label != null,
@@ -25,8 +23,7 @@ export default {
       { 'shadow-sm': props.raised },
 
       {
-        'rounded-sm': !props.rounded && props.size !== 'xsmall',
-        'rounded-xs': !props.rounded && props.size === 'xsmall',
+        'rounded-sm': !props.rounded,
         'rounded-full': props.rounded,
       },
 
@@ -165,8 +162,7 @@ export default {
   label: ({ props }) => ({
     class: [
       'duration-200',
-      { 'text-body-1-semi': props.size !== 'xsmall' },
-      { 'text-body-1': props.size === 'xsmall' },
+      'text-body-1-semi',
       {
         'hover:underline': props.link,
       },

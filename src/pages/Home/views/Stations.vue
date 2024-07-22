@@ -86,7 +86,7 @@
             <SearchInput
               :placeholder="$t('stations.search-in-station')"
               v-model="search"
-              onLoadMoreWashes
+              :style="'neutral'"
             />
           </template>
           <template #default>
@@ -132,9 +132,10 @@
             height="1rem"
             width="10em"
           />
-          <Button
+          <ExtraSmallButton
             label="ייצוא"
-            size="xsmall"
+            size="small"
+            :extraSize="true"
             raised
             outlined
             severity="neutral"
@@ -142,7 +143,7 @@
             <template #icon>
               <Download :size="14" />
             </template>
-          </Button>
+          </ExtraSmallButton>
         </div>
         <StationTable
           :stationWashes="washes"
@@ -169,8 +170,9 @@ import { useRoute } from 'vue-router'
 import { Cctv, ChevronDownCircle, Download } from 'lucide-vue-next'
 import { bgColors, textColors } from '@/theme/Colors'
 import StationDetailsDrawer from '@/pages/Home/components/Stations/StationDetailsDrawer.vue'
-import SearchInput from '@/components/SearchInput.vue'
+import SearchInput from '@/components/Input/SearchInput.vue'
 import { useDebounceFn } from '@vueuse/core'
+import ExtraSmallButton from '@/components/ExtraSmallButton/ExtraSmallButton.vue';
 
 type View = 'stats' | 'station'
 
