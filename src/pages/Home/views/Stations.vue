@@ -82,7 +82,7 @@
           collapsed
         >
           <template #header>
-            <div class="flex items-center gap-lg">
+            <div class="flex items-center gap-sm">
               <DatePickerInput v-model="dates" />
               <SearchInput
                 :placeholder="$t('stations.search-in-station')"
@@ -93,7 +93,7 @@
               <Button
                 :label="$t('filters.reset-search')"
                 link
-                class="text-secondary min-w-[4em] !px-sm"
+                class="text-secondary !min-w-0 !px-7"
                 @click="resetFilters"
               />
             </div>
@@ -193,7 +193,7 @@ const route = useRoute()
 
 const tvURL = import.meta.env.VITE_WASH_TV_URL
 
-const stationId = computed(() => route.query.stationId as String)
+const stationId = computed(() => route.query.stationId as string)
 
 const view = ref<View>(stationId.value ? 'station' : 'stats')
 
