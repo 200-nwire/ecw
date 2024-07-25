@@ -7,6 +7,7 @@ import getWashes from '@/services/stations/getWashes.graphql'
 
 import getStations from '@/services/stations/getStations.graphql'
 import getStationWashesSummary from '@/services/stations/getStationWashesSummary.graphql'
+import { IFilters } from '@/interfaces/filters'
 
 export const fetchStationsService = (stationId?: String) => {
   const query = {
@@ -16,15 +17,7 @@ export const fetchStationsService = (stationId?: String) => {
   return client.query(query)
 }
 
-export const fetchWashesService = (filterObj?: {
-  companyId?: any
-  clientId?: any
-  station?: any
-  search?: any
-  dates?: any
-  after?: any
-  first?: any
-}) => {
+export const fetchWashesService = (filterObj?: IFilters) => {
   const query = {
     query: getWashes,
     variables: { ...filterObj },

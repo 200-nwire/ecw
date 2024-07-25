@@ -193,7 +193,7 @@ const route = useRoute()
 
 const tvURL = import.meta.env.VITE_WASH_TV_URL
 
-const stationId = computed(() => route.query.stationId as String)
+const stationId = computed(() => route.query.stationId as string)
 
 const view = ref<View>(stationId.value ? 'station' : 'stats')
 

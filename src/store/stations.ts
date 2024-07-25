@@ -1,3 +1,4 @@
+import { IFilters } from '@/interfaces/filters'
 import {
   fetchStationsService,
   fetchStationWashesSummaryService,
@@ -54,7 +55,7 @@ export const useStationStore = defineStore({
         this.isLoadingStation = false
       }
     },
-    async getWashes(filters?: {}, initialLoad = false) {
+    async getWashes(filters?: IFilters, initialLoad = false) {
       try {
         this.isLoadingWashes = true
         if (initialLoad) {
@@ -81,7 +82,7 @@ export const useStationStore = defineStore({
         this.isLoadingWashes = false
       }
     },
-    async getStationWashesSummary(filters?: {}) {
+    async getStationWashesSummary(filters?: IFilters) {
       try {
         filters = {
           ...filters,
