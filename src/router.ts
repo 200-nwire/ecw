@@ -16,17 +16,18 @@ const routes: RouteRecordRaw[] = [
     name: 'home',
     redirect: '/stations',
     component: Home,
-    meta: { requiresAuth: true },
     children: [
       {
         path: 'stations',
         name: 'stations',
         component: () => import('@/pages/Home/views/Stations.vue'),
+        meta: { requiresAuth: true },
       },
       {
         path: 'clients',
         name: 'clients',
         component: () => import('@/pages/Home/views/Clients.vue'),
+        meta: { requiresAuth: true },
       },
     ],
   },

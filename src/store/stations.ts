@@ -62,7 +62,14 @@ export const useStationStore = defineStore({
           this.hasNextPage = true
           this.endCursor = ''
         }
-        filters = { ...filters, after: this.endCursor }
+        filters = {
+          ...filters,
+          dates: {
+            since: filters?.dates?.[0],
+            until: filters?.dates?.[1],
+          },
+          after: this.endCursor
+        }
         const { data } = await fetchWashesService(filters)
         this.washes.push(...(data.washes?.edges ?? []))
         this.hasNextPage = data.washes.pageInfo.hasNextPage
@@ -76,6 +83,13 @@ export const useStationStore = defineStore({
     },
     async getStationWashesSummary(filters?: {}) {
       try {
+        filters = {
+          ...filters,
+          dates: {
+            since: filters?.dates?.[0],
+            until: filters?.dates?.[1],
+          },
+        }
         const { data } = await fetchStationWashesSummaryService(filters)
         this.currStationWashesSummary = data.washes.summary
       } catch {

@@ -82,7 +82,9 @@
     @click="visible = true"
     text
     severity="neutral"
-    plain
+    class="my-2 mx-2 bg-transparent"
+    size="small"
+    extraSize
   >
     <Info :size="16" />
   </Button>

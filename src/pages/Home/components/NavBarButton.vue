@@ -38,7 +38,7 @@ const preset = {
         'text-on-action': props.severity === 'nav' && isCurrRoute.value,
         'text-primary': props.severity === 'nav' && !isCurrRoute.value,
         'bg-base-white': props.severity === 'nav',
-        'hover:text-on-action focus:text-on-action focus:ring-transparent': props.severity === 'nav',
+        'hover:text-on-action hover:text-body-1-bold focus:text-on-action focus:ring-transparent': props.severity === 'nav',
       },
     ],
   }),

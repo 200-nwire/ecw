@@ -168,6 +168,7 @@ export const bgColors = {
     'level-3': pallete.neutral[100], // elements on level 2
     'level-4': pallete.neutral[150], // secondary buttons bg
     'level-5': pallete.neutral[200], // secondary buttons bg
+    'level-8': pallete.neutral[500], // secondary buttons bg
   },
 
   error: {

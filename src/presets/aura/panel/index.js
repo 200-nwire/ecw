@@ -23,6 +23,7 @@ export default {
 
       // Conditional Spacing
       { 'p-[1.125rem]': !props.toggleable, 'p-7': props.toggleable },
+      'overflow-y-auto'
     ],
   }),
   title: {
@@ -71,6 +72,7 @@ export default {
 
       //Color
       'text-surface-700',
+      'overflow-y-auto'
     ],
   },
   footer: {

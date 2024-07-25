@@ -28,11 +28,12 @@
     "login": "כניסה לחשבון",
     "invalid-message": "שם משתמש ו/או סיסמא אינם נכונים"
   },
-  "logout": "התנתק",
+  "logout": "התנתקות",
   "stations": {
     "stations-sidebar": {
       "stations-stats": "נתוני @:general.stations",
-      "stations": "@:general.stations {'('}{count}{')'}"
+      "stations": "@:general.stations {'('}{count}{')'}",
+      "search-station": "חיפוש סניף"
     },
     "station-details": {
       "station-name": "@:general.station {name}",
@@ -61,6 +62,20 @@
       },
       "empty-message": "לא נכנסו שטיפות עדיין"
     },
-    "search-in-station": "חיפוש מספר רכב"
+    "search-in-station": "חיפוש מספר רכב",
+  }, 
+  "filters": {
+    "filter-by-date": "תאריך",
+    "reset-search": "איפוס סינון",
+    "dates": {
+      "date-option-today": "היום",
+      "date-option-yesterday": "אתמול",
+      "date-option-last-week": "שבוע שעבר",
+      "date-option-last-month": "חודש שעבר",
+      "date-option-last-year": "שנה שעברה",
+      "date-option-this-week": "השבוע",
+      "date-option-this-month": "החודש",
+      "date-option-this-year": "השנה"
+    }
   }
 }

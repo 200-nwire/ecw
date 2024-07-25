@@ -13,6 +13,7 @@ declare module 'vue' {
     CarImage: typeof import('./src/pages/Home/components/CarImage.vue')['default']
     Clients: typeof import('./src/pages/Home/views/Clients.vue')['default']
     Components: typeof import('./src/pages/UILibrary/Components.vue')['default']
+    DatePickerInput: typeof import('./src/components/Input/DatePickerInput.vue')['default']
     ExtraSmallButton: typeof import('./src/components/ExtraSmallButton/ExtraSmallButton.vue')['default']
     Home: typeof import('./src/pages/Home/Home.vue')['default']
     HomeHeader: typeof import('./src/pages/Home/components/HomeHeader.vue')['default']

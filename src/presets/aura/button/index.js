@@ -37,6 +37,9 @@ export default {
       // Outlined Button
       { 'bg-base-white border': props.outlined && !props.plain },
 
+      // Link
+      { 'focus:!ring-0': props.link },
+
       // --- Severity Buttons ---
 
       // Primary Button
@@ -53,7 +56,7 @@ export default {
       },
       {
         'focus:ring-primary-press focus:bg-primary-press focus:border-primary-press':
-          props.severity === null && !props.outlined && !props.text,
+          props.severity === null && !props.outlined && !props.text && !props.link,
       },
 
       // Primary Text Button
@@ -164,7 +167,7 @@ export default {
       'duration-200',
       'text-body-1-semi',
       {
-        'hover:underline': props.link,
+        'text-body-2-semi underline hover:text-body-2-bold': props.link,
       },
       { 'flex-1': props.label !== null, 'invisible w-0': props.label == null },
     ],
@@ -199,9 +202,6 @@ export default {
 }
 
 // { 'rounded-none first:rounded-l-md last:rounded-r-md': parent.instance.$name == 'InputGroup' },
-
-// // Link
-// { 'focus:ring-primary': props.link },
 
 // // Success Button
 // {

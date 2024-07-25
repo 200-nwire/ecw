@@ -12,6 +12,7 @@ import Column from 'primevue/column'
 import Calendar from 'primevue/calendar'
 import ScrollPanel from 'primevue/scrollpanel'
 import InputText from 'primevue/inputtext'
+import InputGroup from 'primevue/inputgroup'
 import Checkbox from 'primevue/checkbox'
 import Card from 'primevue/card'
 import IconField from 'primevue/iconfield'
@@ -70,7 +71,7 @@ app.component('Row', Row)
 app.component('Skeleton', Skeleton)
 app.component('Image', Image)
 app.component('Sidebar', Sidebar)
-
+app.component('InputGroup', InputGroup)
 app.use(PrimeVue, { unstyled: true, pt: Lara })
 
 app.use(pinia)

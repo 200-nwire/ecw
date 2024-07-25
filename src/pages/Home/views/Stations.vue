@@ -14,7 +14,7 @@
       </div>
       <div
         v-else
-        class="flex flex-col flex-1 gap-8"
+        class="flex flex-col flex-1 gap-5"
       >
         <!-- headers -->
         <div class="flex justify-between items-center">
@@ -35,8 +35,7 @@
             <label
               v-if="!currStationLoading"
               class="text-body-1"
-              >{{ currStation?.location?.address }}</label
-            >
+            >{{ currStation?.location?.address }}</label>
             <Skeleton
               v-else
               width="14em"
@@ -57,7 +56,7 @@
                   severity="neutral"
                   text
                   raised
-                  ><template #icon>
+                ><template #icon>
                     <Cctv :size="20" />
                   </template>
                 </Button>
@@ -83,11 +82,21 @@
           collapsed
         >
           <template #header>
-            <SearchInput
-              :placeholder="$t('stations.search-in-station')"
-              v-model="search"
-              :style="'neutral'"
-            />
+            <div class="flex items-center gap-lg">
+              <DatePickerInput v-model="dates" />
+              <SearchInput
+                :placeholder="$t('stations.search-in-station')"
+                v-model="search"
+                @reset-search="search = ''"
+                :style="'neutral'"
+              />
+              <Button
+                :label="$t('filters.reset-search')"
+                link
+                class="text-secondary min-w-[4em] !px-sm"
+                @click="resetFilters"
+              />
+            </div>
           </template>
           <template #default>
             <div class="flex">
@@ -125,8 +134,7 @@
           <label
             v-if="!stationStore.isLoadingWashes"
             class="text-body-1"
-            >{{ `${totalWashesCount} שטיפות היום` }}</label
-          >
+          >{{ `${totalWashesCount} שטיפות ${preDefinedRangeOption?.label ?? getRangeDatesString(dates)}` }}</label>
           <Skeleton
             v-else
             height="1rem"
@@ -157,22 +165,27 @@
   </MainLayout>
 </template>
 
-<script setup lang="ts">
+<script
+  setup
+  lang="ts"
+>
 import MainLayout from '@/layouts/MainLayout.vue'
 import StationsSidebar from '@/pages/Home/components/StationsSidebar.vue'
 import WatchRanksButton from '@/pages/Home/components/WatchRanksButton.vue'
 import StationTable from '@/pages/Home/components/StationTable.vue'
 import { onMounted, ref } from 'vue'
 import { useStationStore } from '@/store/stations'
-import { useClientStore } from '@/store/clients'
 import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { Cctv, ChevronDownCircle, Download } from 'lucide-vue-next'
 import { bgColors, textColors } from '@/theme/Colors'
 import StationDetailsDrawer from '@/pages/Home/components/Stations/StationDetailsDrawer.vue'
 import SearchInput from '@/components/Input/SearchInput.vue'
+import DatePickerInput from '@/components/Input/DatePickerInput.vue'
 import { useDebounceFn } from '@vueuse/core'
 import ExtraSmallButton from '@/components/ExtraSmallButton/ExtraSmallButton.vue'
+import { getRangeDatesString, useDate } from '@/composables/useDate';
+import { isEqual } from 'lodash'
 
 type View = 'stats' | 'station'
 
@@ -184,12 +197,18 @@ const stationId = computed(() => route.query.stationId as String)
 
 const view = ref<View>(stationId.value ? 'station' : 'stats')
 
-const search = ref('')
-// const filters = ref({
-//   search: '',
-//   dates: { since: '', until: ''},
-// // FIXME add subscription type
-// });
+const { dateOptions } = useDate();
+const preDefinedRangeOption = computed(() => 
+  dateOptions.find(({ getDates }) => isEqual(getDates(), dates.value))
+)
+
+const search = ref<string>('')
+const dates = ref<number[]>(dateOptions[0].getDates())
+
+const resetFilters = () => {
+  search.value = '';
+  dates.value = dateOptions[0].getDates();
+};
 
 const searchByText = useDebounceFn(() => {
   onLoadMoreWashes(true)
@@ -199,10 +218,12 @@ watch(search, () => {
   searchByText()
 })
 
+watch(dates, () => {
+  onLoadMoreWashes(true)
+})
+
 const stationStore = useStationStore()
 const { getWashes, getStationWashesSummary, getStation, resetPreviousStationInfo } = useStationStore()
-
-const clientStore = useClientStore()
 
 const washes = computed(() =>
   stationStore.washes.map((wash: any) => ({
@@ -215,43 +236,49 @@ const currStationLoading = computed(() => stationStore.isLoadingStation)
 
 const totalWashesCount = computed(() => stationStore.totalWashes ?? 0)
 
-const clientsSummary = computed(() => clientStore.clientsSummary)
+const washesSummary = computed(() => stationStore.currStationWashesSummary)
 
 const subscriptionStats = computed(() => [
   {
     label: 'מנוי פעיל',
     color: bgColors.table.status.green,
-    value: clientsSummary.value?.totalSubscriptions?.Active ?? 0,
+    value: washesSummary.value?.totalActive ?? 0,
   },
   {
     label: 'מנוי מבוטל',
     color: bgColors.table.status.red,
-    value: clientsSummary.value?.totalSubscriptions?.OnHold ?? 0,
+    value: washesSummary.value?.totalCanceled ?? 0,
   },
   {
     label: 'מנוי בהשהייה',
     color: bgColors.table.status.orange,
-    value: clientsSummary.value?.totalSubscriptions?.Inactive ?? 0,
+    value: washesSummary.value?.totalUnpaid ?? 0,
   },
   {
     label: 'אין מנוי',
     color: bgColors.table.status.grey,
-    value: clientsSummary.value?.totalSubscriptions?.NoSubscription ?? 0,
-  }, // FIXME:
+    value: washesSummary.value?.totalGuests ?? 0,
+  },
   {
     label: 'מנוי מתבטל חודש הבא',
     color: textColors.end,
-    value: clientsSummary.value?.totalSubscriptions?.NoSubscription ?? 0,
+    value: washesSummary.value?.totalSubscriptions?.NoSubscription ?? 0,
   }, // FIXME:
 ])
 
 const onLoadMoreWashes = async (initialLoad: boolean) => {
-  await getWashes({ station: stationId.value, search: search.value }, initialLoad)
+  const filters = {
+    station: stationId.value,
+    search: search.value,
+    dates: dates.value,
+  }
+
+  await getWashes(filters, initialLoad)
+  getStationWashesSummary(filters)
 }
 
 const getStationInfo = () => {
   getStation(stationId.value)
-  getStationWashesSummary({ station: stationId.value })
   onLoadMoreWashes(true)
 }
 
@@ -263,7 +290,7 @@ watch(stationId, () => {
   view.value = stationId.value ? 'station' : 'stats'
   resetPreviousStationInfo()
   getStationInfo()
-})
+});
 </script>
 
 <style>
