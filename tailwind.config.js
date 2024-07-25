@@ -199,6 +199,7 @@ export default {
       'body-1-bold': [fontSize.base, { lineHeight: '1.25rem', fontWeight: fontWeight.bold }],
       'body-2': [fontSize.sm, { lineHeight: '1.125rem', fontWeight: fontWeight.normal }],
       'body-2-semi': [fontSize.sm, { lineHeight: '1.125rem', fontWeight: fontWeight.semibold }],
+      'body-2-bold': [fontSize.sm, { lineHeight: '1.125rem', fontWeight: fontWeight.bold }],
       'body-3': [fontSize.xs, { lineHeight: dimensions[7], fontWeight: fontWeight.normal }],
       'body-3-semi': [fontSize.xs, { lineHeight: dimensions[7], fontWeight: fontWeight.semibold }],
     },

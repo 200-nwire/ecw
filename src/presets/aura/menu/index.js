@@ -7,13 +7,14 @@ export default {
       { 'rounded-sm': props.popup },
 
       // Spacing
-      'py-3',
+      'py-4',
 
       // Colors
       'bg-base-white',
       'text-primary',
 
       { 'shadow-xl': props.popup },
+
     ],
   }),
   menu: {
@@ -26,24 +27,27 @@ export default {
     ],
   },
   menuitem: {
-    class: 'relative my-[2px] [&:first-child]:mt-0',
+    class: 'relative',
   },
-  content: ({ context }) => ({
+  content: ({ props, context }) => ({
     class: [
       'text-body-1',
 
-      // Colors
+      // Color
       'text-primary',
-      {
-        'text-primary': !context.focused && !context.active,
-        'text-primary bg-surface-200': context.focused && !context.active,
-        'text-primary-highlight-inverse bg-primary-highlight':
-          (context.focused && context.active) || context.active || (!context.focused && context.active),
-      },
+
+      // {
+      //   'text-primary': !context.focused && !context.active,
+      //   'text-primary bg-surface-200': context.focused && !context.active,
+      //   'text-primary-highlight-inverse bg-primary-highlight':
+      //     (context.focused && context.active) || context.active || (!context.focused && context.active),
+      // },
 
       // Transitions
       'transition-shadow',
       'duration-200',
+
+      'rounded-xxs',
 
       // States
       {
@@ -55,7 +59,7 @@ export default {
       { 'opacity-60 pointer-events-none cursor-default': context.disabled },
     ],
   }),
-  action: {
+  action: ({ props }) => ({
     class: [
       'relative',
       // Flexbox
@@ -64,10 +68,9 @@ export default {
       'items-center',
 
       // Spacing
-      'py-3',
-      'px-4',
+      'py-3 px-4',
 
-      // Color
+      // color
       'text-primary',
 
       // Misc
@@ -76,7 +79,7 @@ export default {
       'cursor-pointer',
       'select-none',
     ],
-  },
+  }),
   icon: {
     class: [
       // Spacing
