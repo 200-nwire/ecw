@@ -143,15 +143,13 @@
   setup
   lang="ts"
 >
-import { ShoppingBag } from 'lucide-vue-next'
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { getFormattedDate } from '@/composables/useDate'
-import type { PropType } from 'vue'
+// import type { PropType } from 'vue'
 import Bucket from '@/assets/bucket.svg'
 import TableLoadingSkeleton from '@/pages/Home/components/TableLoadingSkeleton.vue'
 import { useElementBounding } from '@vueuse/core'
-import Star from '@/assets/star.svg'
-import { watch } from 'vue'
+// import Star from '@/assets/star.svg'
 
 const props = defineProps({
   clients: {
@@ -171,12 +169,12 @@ const props = defineProps({
 
 const emit = defineEmits(['onLoadMoreClients'])
 
-const SubscriptionStatus = {
-  ACTIVE: 'ACTIVE',
-  UNPAID: 'UNPAID',
-  PAUSED: 'PAUSED',
-  CANCELED: 'CANCELED',
-}
+// const SubscriptionStatus = {
+//   ACTIVE: 'ACTIVE',
+//   UNPAID: 'UNPAID',
+//   PAUSED: 'PAUSED',
+//   CANCELED: 'CANCELED',
+// }
 
 const tableRef = ref<HTMLElement | null>(null)
 const tableRect = ref(null as any)

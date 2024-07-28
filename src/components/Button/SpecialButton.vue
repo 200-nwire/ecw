@@ -34,7 +34,7 @@ const options = {
   }
 }
 
-const props = defineProps({
+defineProps({
   type: {
     type: String as PropType<SpecialTypes>,
     required: true,
