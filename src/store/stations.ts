@@ -17,6 +17,7 @@ export const useStationStore = defineStore({
     currStationWashesSummary: {} as any,
     washes: [] as any,
     isLoadingWashes: true as any,
+    isLoadingWashesInitial: true as any,
     fullClientWashes: [] as any,
     hasNextPage: true as any,
     endCursor: '' as any,
@@ -58,6 +59,7 @@ export const useStationStore = defineStore({
     async getWashes(filters?: IFilters, initialLoad = false) {
       try {
         this.isLoadingWashes = true
+        this.isLoadingWashesInitial = true
         if (initialLoad) {
           this.washes = []
           this.hasNextPage = true
@@ -80,6 +82,7 @@ export const useStationStore = defineStore({
         console.log('error')
       } finally {
         this.isLoadingWashes = false
+        this.isLoadingWashesInitial = false
       }
     },
     async getStationWashesSummary(filters?: IFilters) {

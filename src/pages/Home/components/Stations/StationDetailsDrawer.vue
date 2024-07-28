@@ -84,7 +84,6 @@
     severity="neutral"
     class="my-2 mx-2 bg-transparent"
     size="small"
-    extraSize
   >
     <Info :size="16" />
   </Button>

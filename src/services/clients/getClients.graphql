@@ -12,7 +12,7 @@ query clients(
   $clientsWithSubscriptions: Boolean
 ) {
   accounts(
-    pagination: { after: $after, first: 25 }
+    pagination: { after: $after, first: 40 }
     search: $search
     filter: {
       stations: $stations
@@ -30,6 +30,7 @@ query clients(
       endCursor
       hasNextPage
     }
+    totalCount
     edges {
       node {
         id

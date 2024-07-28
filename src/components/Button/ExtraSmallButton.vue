@@ -28,7 +28,7 @@ const preset = {
     ],
   }),
   label: ({ props }) => ({
-    class: ['text-body-1'],
+    class: ['!text-body-1'],
   }),
 }
 </script>

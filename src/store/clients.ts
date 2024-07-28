@@ -1,3 +1,4 @@
+import { IFilters } from '@/interfaces/filters'
 import {
   fetchClientPaymentsService,
   fetchClientService,
@@ -12,29 +13,51 @@ export const useClientStore = defineStore({
   state: () => ({
     searchFromHeader: false,
     clients: [] as any,
+    isLoadingClients: false as boolean,
+    isLoadingClientsInitial: false as boolean,
     client: {} as any,
     clientsSummary: {} as any,
     clientPayments: {},
     fullClientPayments: [] as any,
     hasNextPage: null as any,
     endCursor: '' as any,
+    totalAccounts: 0 as number,
   }),
 
   actions: {
     setSearchFromHeader(isFromHeader: boolean) {
       this.searchFromHeader = isFromHeader
     },
-    async getClients(filters = {}, after = '') {
+    async getClients(filters?: IFilters, initialLoad = false) {
       try {
-        const { data } = await fetchClients(filters, after)
-        if (!after) this.clients = data
-        else {
-          this.clients.accounts.edges.push(...data.accounts.edges)
+        this.isLoadingClients = true
+        this.isLoadingClientsInitial = initialLoad;
+        if (initialLoad) {
+          this.clients = []
+          this.hasNextPage = true
+          this.endCursor = ''
         }
+
+        filters = {
+          ...filters,
+          dates: {
+            since: filters?.dates?.[0],
+            until: filters?.dates?.[1],
+          },
+          after: this.endCursor
+        }
+        const { data } = await fetchClients(filters)
+        this.clients.push(...(data.accounts?.edges ?? []))
+        console.log('clients :>> ', this.clients);
+
         this.hasNextPage = data.accounts.pageInfo.hasNextPage
         this.endCursor = data.accounts.pageInfo.endCursor
+        this.totalAccounts = data.accounts.totalCount
       } catch (error) {
         console.log(error)
+      } finally {
+        this.isLoadingClients = false
+        this.isLoadingClientsInitial = false
       }
     },
     async getClientsSummary(filters = {}, after = '') {
