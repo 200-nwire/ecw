@@ -68,7 +68,7 @@
                 <label class="text-headline-3-semi">{{ currStation?.cleanerCode }}</label>
               </div>
             </div>
-            <WatchRanksButton />
+            <SpecialButton type="rank" />
           </div>
           <Skeleton
             v-else
@@ -99,28 +99,7 @@
             </div>
           </template>
           <template #default>
-            <div class="flex">
-              <div
-                v-for="(stat, index) in subscriptionStats"
-                :key="index"
-                class="flex"
-              >
-                <div class="flex-col py-5 px-7 gap-2 w-[11.25rem]">
-                  <div class="flex items-center gap-3">
-                    <span
-                      class="h-5 w-5 rounded-full"
-                      :style="{ backgroundColor: stat.color }"
-                    ></span>
-                    <label class="text-body-1-semi text-secondary">{{ stat.label }}</label>
-                  </div>
-                  <label class="text-headline-2 px-7 text-primary">{{ stat.value }}</label>
-                </div>
-                <Divider
-                  v-if="index < subscriptionStats.length - 1"
-                  layout="vertical"
-                />
-              </div>
-            </div>
+            <FilterStatusInfo />
           </template>
           <template #togglericon>
             <ChevronDownCircle
@@ -132,7 +111,7 @@
         <!-- stats -->
         <div class="flex justify-between items-center">
           <label
-            v-if="!stationStore.isLoadingWashes"
+            v-if="!stationStore.isLoadingWashesInitial"
             class="text-body-1"
           >{{ `${totalWashesCount} שטיפות ${preDefinedRangeOption?.label ?? getRangeDatesString(dates)}` }}</label>
           <Skeleton
@@ -143,7 +122,6 @@
           <ExtraSmallButton
             label="ייצוא"
             size="small"
-            :extraSize="true"
             raised
             outlined
             severity="neutral"
@@ -171,19 +149,19 @@
 >
 import MainLayout from '@/layouts/MainLayout.vue'
 import StationsSidebar from '@/pages/Home/components/StationsSidebar.vue'
-import WatchRanksButton from '@/pages/Home/components/WatchRanksButton.vue'
+import SpecialButton from '@/components/Button/SpecialButton.vue'
 import StationTable from '@/pages/Home/components/StationTable.vue'
+import FilterStatusInfo from '@/pages/Home/components/FilterStatusInfo.vue'
 import { onMounted, ref } from 'vue'
 import { useStationStore } from '@/store/stations'
 import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { Cctv, ChevronDownCircle, Download } from 'lucide-vue-next'
-import { bgColors, textColors } from '@/theme/Colors'
 import StationDetailsDrawer from '@/pages/Home/components/Stations/StationDetailsDrawer.vue'
 import SearchInput from '@/components/Input/SearchInput.vue'
 import DatePickerInput from '@/components/Input/DatePickerInput.vue'
 import { useDebounceFn } from '@vueuse/core'
-import ExtraSmallButton from '@/components/ExtraSmallButton/ExtraSmallButton.vue'
+import ExtraSmallButton from '@/components/Button/ExtraSmallButton.vue'
 import { getRangeDatesString, useDate } from '@/composables/useDate';
 import { isEqual } from 'lodash'
 
@@ -235,36 +213,6 @@ const currStation = computed(() => stationStore.currStation)
 const currStationLoading = computed(() => stationStore.isLoadingStation)
 
 const totalWashesCount = computed(() => stationStore.totalWashes ?? 0)
-
-const washesSummary = computed(() => stationStore.currStationWashesSummary)
-
-const subscriptionStats = computed(() => [
-  {
-    label: 'מנוי פעיל',
-    color: bgColors.table.status.green,
-    value: washesSummary.value?.totalActive ?? 0,
-  },
-  {
-    label: 'מנוי מבוטל',
-    color: bgColors.table.status.red,
-    value: washesSummary.value?.totalCanceled ?? 0,
-  },
-  {
-    label: 'מנוי בהשהייה',
-    color: bgColors.table.status.orange,
-    value: washesSummary.value?.totalUnpaid ?? 0,
-  },
-  {
-    label: 'אין מנוי',
-    color: bgColors.table.status.grey,
-    value: washesSummary.value?.totalGuests ?? 0,
-  },
-  {
-    label: 'מנוי מתבטל חודש הבא',
-    color: textColors.end,
-    value: washesSummary.value?.totalSubscriptions?.NoSubscription ?? 0,
-  }, // FIXME:
-])
 
 const onLoadMoreWashes = async (initialLoad: boolean) => {
   const filters = {

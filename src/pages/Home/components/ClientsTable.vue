@@ -23,41 +23,30 @@
           <div
             class="border-r-[4px] border-r-transparent p-7 !px-2 text-left"
             :class="{
-        '!border-r-table-status-green': data.status === SubscriptionStatus.ACTIVE,
-        'border-r-table-status-red': data.statusIndicator === SubscriptionStatus.CANCELED,
-        'border-r-table-status-orange': data.statusIndicator === SubscriptionStatus.UNPAID,
-        '!border-r-table-status-grey': data.subscription === EMPTY_FIELD,
+        // FIXME
+        // '!border-r-table-status-green': data.status === SubscriptionStatus.ACTIVE,
+        // 'border-r-table-status-red': data.statusIndicator === SubscriptionStatus.CANCELED,
+        // 'border-r-table-status-orange': data.statusIndicator === SubscriptionStatus.UNPAID,
+        // '!border-r-table-status-grey': data.subscription === EMPTY_FIELD,
       }"
           >
-            {{ data.row }}
+            {{ data?.row }}
           </div>
         </template>
       </Column>
       <Column
         field="name"
         frozen
-        :header="$t('stations.table.headers.customer-name')"
+        :header="$t('clients.table.client-name')"
         bodyClass="!text-body-1-semi"
-        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 134px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
         </template>
       </Column>
       <Column
-        field="car"
-        :header="$t('stations.table.headers.subscription-number')"
-        bodyClass="!text-body-1-semi"
-        style="min-width: 98px"
-      >
-        <template #loading>
-          <TableLoadingSkeleton />
-        </template>
-      </Column>
-      <Column
-        field="time"
-        :header="$t('stations.table.headers.time')"
-        style="min-width: 56px"
+        field="company"
+        :header="$t('clients.table.company-name')"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -65,79 +54,78 @@
       </Column>
       <Column
         field="date"
-        :header="$t('stations.table.headers.date')"
-        style="min-width: 84px"
+        :header="$t('clients.table.date')"
       >
         <template #loading>
           <TableLoadingSkeleton />
         </template>
       </Column>
       <Column
-        field="products"
-        :header="$t('stations.table.headers.products')"
-        style="min-width: 76px"
-      >
-        <template>
-          <ShoppingBag :size="16" />
-        </template>
-        <template #loading>
-          <TableLoadingSkeleton />
-        </template>
-      </Column>
-      <Column
-        field="subscription"
-        :header="$t('stations.table.headers.subscription-type')"
-        style="min-width: 124px"
-        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px;`"
+        field="points"
+        :header="$t('clients.table.client-value')"
       >
         <template #loading>
           <TableLoadingSkeleton />
         </template>
       </Column>
       <Column
-        field="originStation"
-        :header="$t('stations.table.headers.origin-station')"
-        style="min-width: 124px"
-        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px;`"
+        field="phone"
+        :header="$t('clients.table.client-phone')"
       >
         <template #loading>
           <TableLoadingSkeleton />
         </template>
       </Column>
       <Column
-        field="station"
-        :header="$t('stations.table.headers.washed-at')"
-        style="min-width: 124px"
+        field="totalPurchases"
+        :header="$t('clients.table.products')"
       >
         <template #loading>
           <TableLoadingSkeleton />
         </template>
+
       </Column>
       <Column
-        field="count"
-        :header="$t('stations.table.headers.total-washes')"
-        style="min-width: 80px"
-        :style="`max-width: ${calcValueOfPercentage(5, tableRect?.width ?? 0)}px;`"
+        field="source"
+        :header="$t('clients.table.source')"
       >
         <template #loading>
           <TableLoadingSkeleton />
         </template>
+
       </Column>
       <Column
-        field="image"
-        :header="$t('stations.table.headers.image')"
-        style="min-width: 56px"
+        field="subscriptions"
+        :header="$t('clients.table.subscribers')"
       >
+        <template #loading>
+          <TableLoadingSkeleton />
+        </template>
         <template #body="{ data }">
-          <CarImage
-            :image="data.image"
-            :rowData="data"
-          />
-        </template>
-        <template #loading>
-          <TableLoadingSkeleton />
+          <div
+            v-for="sub in data?.subscriptions ?? []"
+            class=""
+            :key="sub.id"
+          >
+            {{ sub.car }}
+          </div>
         </template>
       </Column>
+      <!-- <Column
+            field="subscriptions"
+            :header="$t('סניף')"
+            bodyClass="!text-body-1-semi"
+            >
+            <template #loading>
+              <TableLoadingSkeleton />
+            </template>
+            <template #body="{ data }">
+              <div v-for="sub in data.subscriptions" class="" :key="sub.id">
+                {{ sub.car }}
+                </div>
+            </template>
+          </Column> -->
+
       <template #empty>
         <div class="flex flex-col flex-1 gap-6 justify-center items-center p-14">
           <label class="text-headline-3-semi">{{ $t('stations.table.empty-message') }}</label>
@@ -157,21 +145,18 @@
 >
 import { ShoppingBag } from 'lucide-vue-next'
 import { computed, nextTick, onMounted, ref } from 'vue'
-import { getFormattedDate, getFormattedTime } from '@/composables/useDate'
+import { getFormattedDate } from '@/composables/useDate'
 import type { PropType } from 'vue'
-import type { IWash } from '@/interfaces/wash'
 import Bucket from '@/assets/bucket.svg'
 import TableLoadingSkeleton from '@/pages/Home/components/TableLoadingSkeleton.vue'
 import { useElementBounding } from '@vueuse/core'
-import CarImage from '@/pages/Home/components/CarImage.vue'
+import Star from '@/assets/star.svg'
+import { watch } from 'vue'
 
 const props = defineProps({
-  stationWashes: {
-    type: Array as PropType<IWash[]>,
-    required: true,
-  },
-  currStation: {
-    type: Object,
+  clients: {
+    type: Array as any,
+    // type: Array as PropType<IWash[]>,
     required: true,
   },
   loading: {
@@ -184,7 +169,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['onLoadMoreWashes'])
+const emit = defineEmits(['onLoadMoreClients'])
 
 const SubscriptionStatus = {
   ACTIVE: 'ACTIVE',
@@ -206,36 +191,31 @@ const onLazyLoad = async (event) => {
   let { last } = event;
   if (last < data.value.length
     || props.loading
-    || (last >= data.value.length && data.value.length === 0))
+    || (last >= data.value.length && data.value.length === 0)) // in case there is no data
     return;
-  emit('onLoadMoreWashes')
+  emit('onLoadMoreClients')
 };
 
-const calcValueOfPercentage = (percentage: number, total: number): number => {
-  return Math.floor((percentage * total) / 100)
-}
+// const calcValueOfPercentage = (percentage: number, total: number): number => {
+//   return Math.floor((percentage * total) / 100)
+// }
 
 const EMPTY_FIELD = '---------'
 
 const data = computed(
   () =>
-    props.loading && !props.stationWashes?.length ? Array.from({ length: 10 }) :
-      props.stationWashes?.map(({ id, account, car, washedOn, today, total, status, image, subscription }, index) => ({
-        id,
-        row: `${index + 1}`,
-        name: account?.profile?.name ?? EMPTY_FIELD,
-        car,
-        time: getFormattedTime(washedOn),
-        date: getFormattedDate(washedOn),
-        count: `${today}/${total}`,
-        status,
-        isPremium: subscription?.plan?.description?.includes('ווקס+ניגוב'),
-        image,
-        products: 0, //FIXME:
-        originStation: subscription?.station?.name ?? EMPTY_FIELD,
-        station: props.currStation.name,
-        subscription: subscription?.plan?.description ?? EMPTY_FIELD,
-      })) ?? [],
+    props.loading && !props.clients?.length ? Array.from({ length: 10 }) : props.clients?.map(({ node: { id, profile, company, createdOn, points, totalPurchases, subscriptions, status, image, subscription } }, index) => ({
+      id,
+      row: `${index + 1}`,
+      name: profile?.name && profile?.name !== ' ' ? profile?.name : EMPTY_FIELD,
+      company: company?.name ?? EMPTY_FIELD,
+      date: getFormattedDate(createdOn),
+      points,
+      phone: profile?.phone ?? EMPTY_FIELD,
+      totalPurchases,
+      source: profile?.source ?? EMPTY_FIELD,
+      subscriptions,
+    })) ?? [],
 )
 
 const preset = {
@@ -260,5 +240,3 @@ const preset = {
 
 <!-- add new colors to more states -->
 <!-- fix products -->
-<!-- fix photo -->
-<!-- add star to subscriptions -->

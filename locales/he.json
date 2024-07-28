@@ -64,6 +64,21 @@
     },
     "search-in-station": "חיפוש מספר רכב",
   }, 
+  "clients": {
+    "clients-title": "טבלת לקוחות",
+    "recharge": "חיוב חוזר",
+    "clients-total": "סך לקוחות {total}",
+    "table": {
+      "client-name": "כינוי לקוח",
+      "company-name": "שם החברה",
+      "client-value": "ערך לקוח",
+      "client-phone": "טלפון",
+      "date": "תאריך",
+      "products": "מוצרים",
+      "source": "מקור הגעה",
+      "subscribers": "מנויים"
+    } 
+  },
   "filters": {
     "filter-by-date": "תאריך",
     "reset-search": "איפוס סינון",
