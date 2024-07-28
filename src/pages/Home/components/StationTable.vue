@@ -90,6 +90,12 @@
         style="min-width: 124px"
         :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px;`"
       >
+        <template #body="{ data }">
+          <div class="flex items-center">
+            <span>{{ data.subscription?.replace('ווקס+ניגוב', '') }}</span>
+            <Star v-if="data.subscription?.includes('ווקס+ניגוב')" />
+          </div>
+        </template>
         <template #loading>
           <TableLoadingSkeleton />
         </template>
@@ -164,6 +170,7 @@ import Bucket from '@/assets/bucket.svg'
 import TableLoadingSkeleton from '@/pages/Home/components/TableLoadingSkeleton.vue'
 import { useElementBounding } from '@vueuse/core'
 import CarImage from '@/pages/Home/components/CarImage.vue'
+import Star from '@/assets/star.svg'
 
 const props = defineProps({
   stationWashes: {

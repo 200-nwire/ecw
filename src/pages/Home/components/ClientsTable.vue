@@ -80,6 +80,12 @@
         field="totalPurchases"
         :header="$t('clients.table.products')"
       >
+        <template #body="{ data }">
+          <div class="flex items-center gap-2">
+            <ShoppingBag :size="20" />
+            {{ data.totalPurchases }}
+          </div>
+        </template>
         <template #loading>
           <TableLoadingSkeleton />
         </template>
@@ -102,12 +108,102 @@
           <TableLoadingSkeleton />
         </template>
         <template #body="{ data }">
-          <div
-            v-for="sub in data?.subscriptions ?? []"
-            class=""
-            :key="sub.id"
-          >
-            {{ sub.car }}
+          <div class="flex flex-col gap-4">
+            <div
+              v-for="sub in data?.subscriptions ?? []"
+              class=""
+              :key="sub.id"
+            >
+              <div
+                class="flex items-center gap-2 rounded-full px-5 py-1 w-min"
+                :class="{
+        // FIXME:
+        'bg-status-active': sub.status === 'ACTIVE',
+        'bg-status-cancelled': sub.status === 'CANCELED',
+        'bg-status-hold': sub.status === 'UNPAID',
+        'bg-status-end': sub.status === 'ENDED',
+      }"
+              >
+                <span
+                  class="rounded-full h-[14px] w-[14px]"
+                  :class="{
+        // FIXME:
+        'bg-green-500': sub.status === 'ACTIVE',
+        'bg-red-500': sub.status === 'CANCELED',
+        'bg-orange-500': sub.status === 'UNPAID',
+        'bg-lime-600': sub.status === 'ENDED',
+      }"
+                ></span>
+                <span
+                  class="!text-body-1-semi"
+                  :class="{
+        // FIXME:
+        'text-active': sub.status === 'ACTIVE',
+        'text-cancelled': sub.status === 'CANCELED',
+        'text-hold': sub.status === 'UNPAID',
+        'text-end': sub.status === 'ENDED',
+      }"
+                >{{ sub.car }}</span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </Column>
+      <Column
+        field="subscriptions"
+        :header="$t('clients.table.subscribers-station')"
+      >
+        <template #loading>
+          <TableLoadingSkeleton />
+        </template>
+        <template #body="{ data }">
+          <div class="flex flex-col gap-4">
+            <div
+              v-for="sub in data?.subscriptions ?? []"
+              class=""
+              :key="sub.id"
+            >
+              {{ sub.station?.name }}
+            </div>
+          </div>
+        </template>
+      </Column>
+      <Column
+        field="subscriptions"
+        :header="$t('clients.table.subscribers-plan')"
+      >
+        <template #loading>
+          <TableLoadingSkeleton />
+        </template>
+        <template #body="{ data }">
+          <div class="flex flex-col gap-4">
+            <div
+              v-for="sub in data?.subscriptions ?? []"
+              class=""
+              :key="sub.id"
+            >
+              <span>{{ sub?.plan?.description?.replace('ווקס+ניגוב', '') }}</span>
+              <Star v-if="sub?.plan?.description?.includes('ווקס+ניגוב')" />
+            </div>
+          </div>
+        </template>
+      </Column>
+      <Column
+        field="subscriptions"
+        :header="$t('clients.table.subscribers-charge')"
+      >
+        <template #loading>
+          <TableLoadingSkeleton />
+        </template>
+        <template #body="{ data }">
+          <div class="flex flex-col gap-4">
+            <div
+              v-for="sub in data?.subscriptions ?? []"
+              class=""
+              :key="sub.id"
+            >
+              {{ getFormattedDate(sub.expiresOn) }}
+            </div>
           </div>
         </template>
       </Column>
@@ -146,10 +242,11 @@
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { getFormattedDate } from '@/composables/useDate'
 // import type { PropType } from 'vue'
-import Bucket from '@/assets/bucket.svg'
+import Bucket from '@/assets/bucket.svg?component'
 import TableLoadingSkeleton from '@/pages/Home/components/TableLoadingSkeleton.vue'
 import { useElementBounding } from '@vueuse/core'
-// import Star from '@/assets/star.svg'
+import Star from '@/assets/star.svg?component'
+import { ShoppingBag } from 'lucide-vue-next'
 
 const props = defineProps({
   clients: {

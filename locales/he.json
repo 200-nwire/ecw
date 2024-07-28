@@ -76,7 +76,10 @@
       "date": "תאריך",
       "products": "מוצרים",
       "source": "מקור הגעה",
-      "subscribers": "מנויים"
+      "subscribers": "מנויים",
+      "subscribers-station": "סניף",
+      "subscribers-plan": "מסלול",
+      "subscribers-charge": "חיוב קרוב"
     } 
   },
   "filters": {
