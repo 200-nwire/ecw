@@ -14,7 +14,6 @@ declare module 'vue' {
     Clients: typeof import('./src/pages/Home/views/Clients.vue')['default']
     ClientsTable: typeof import('./src/pages/Home/components/ClientsTable.vue')['default']
     Components: typeof import('./src/pages/UILibrary/Components.vue')['default']
-    copy: typeof import('./src/pages/Home/components/StationTable copy.vue')['default']
     DatePickerInput: typeof import('./src/components/Input/DatePickerInput.vue')['default']
     ExtraSmallButton: typeof import('./src/components/Button/ExtraSmallButton.vue')['default']
     FilterStatusInfo: typeof import('./src/pages/Home/components/FilterStatusInfo.vue')['default']
@@ -35,6 +34,5 @@ declare module 'vue' {
     StationsSidebar: typeof import('./src/pages/Home/components/StationsSidebar.vue')['default']
     StationTable: typeof import('./src/pages/Home/components/StationTable.vue')['default']
     TableLoadingSkeleton: typeof import('./src/pages/Home/components/TableLoadingSkeleton.vue')['default']
-    WatchRanksButton: typeof import('./src/components/Button/WatchRanksButton.vue')['default']
   }
 }

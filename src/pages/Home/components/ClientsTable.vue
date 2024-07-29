@@ -39,6 +39,7 @@
         frozen
         :header="$t('clients.table.client-name')"
         bodyClass="!text-body-1-semi"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 120px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -47,6 +48,7 @@
       <Column
         field="company"
         :header="$t('clients.table.company-name')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 120px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -55,6 +57,7 @@
       <Column
         field="date"
         :header="$t('clients.table.date')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 84px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -63,6 +66,7 @@
       <Column
         field="points"
         :header="$t('clients.table.client-value')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 72px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -71,6 +75,7 @@
       <Column
         field="phone"
         :header="$t('clients.table.client-phone')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 98px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -79,6 +84,7 @@
       <Column
         field="totalPurchases"
         :header="$t('clients.table.products')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 76px`"
       >
         <template #body="{ data }">
           <div class="flex items-center gap-2">
@@ -94,6 +100,7 @@
       <Column
         field="source"
         :header="$t('clients.table.source')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 76px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -103,6 +110,7 @@
       <Column
         field="subscriptions"
         :header="$t('clients.table.subscribers')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 120px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -152,6 +160,7 @@
       <Column
         field="subscriptions"
         :header="$t('clients.table.subscribers-station')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 124px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -171,6 +180,7 @@
       <Column
         field="subscriptions"
         :header="$t('clients.table.subscribers-plan')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 136px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -179,11 +189,11 @@
           <div class="flex flex-col gap-4">
             <div
               v-for="sub in data?.subscriptions ?? []"
-              class=""
+              class="flex items-center gap-2"
               :key="sub.id"
             >
               <span>{{ sub?.plan?.description?.replace('ווקס+ניגוב', '') }}</span>
-              <Star v-if="sub?.plan?.description?.includes('ווקס+ניגוב')" />
+              <img :src="StarIcon" v-if="sub?.plan?.description?.includes('ווקס+ניגוב')"/>
             </div>
           </div>
         </template>
@@ -191,6 +201,7 @@
       <Column
         field="subscriptions"
         :header="$t('clients.table.subscribers-charge')"
+        :style="`max-width: ${calcValueOfPercentage(10, tableRect?.width ?? 0)}px; min-width: 84px`"
       >
         <template #loading>
           <TableLoadingSkeleton />
@@ -242,10 +253,10 @@
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { getFormattedDate } from '@/composables/useDate'
 // import type { PropType } from 'vue'
-import Bucket from '@/assets/bucket.svg?component'
+import Bucket from '@/assets/bucket.svg'
 import TableLoadingSkeleton from '@/pages/Home/components/TableLoadingSkeleton.vue'
 import { useElementBounding } from '@vueuse/core'
-import Star from '@/assets/star.svg?component'
+import StarIcon from '@/assets/star.svg?url'
 import { ShoppingBag } from 'lucide-vue-next'
 
 const props = defineProps({
@@ -291,9 +302,9 @@ const onLazyLoad = async (event) => {
   emit('onLoadMoreClients')
 };
 
-// const calcValueOfPercentage = (percentage: number, total: number): number => {
-//   return Math.floor((percentage * total) / 100)
-// }
+const calcValueOfPercentage = (percentage: number, total: number): number => {
+  return Math.floor((percentage * total) / 100)
+}
 
 const EMPTY_FIELD = '---------'
 
