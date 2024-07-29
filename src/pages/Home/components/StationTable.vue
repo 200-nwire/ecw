@@ -93,7 +93,7 @@
         <template #body="{ data }">
           <div class="flex items-center">
             <span>{{ data.subscription?.replace('ווקס+ניגוב', '') }}</span>
-            <Star v-if="data.subscription?.includes('ווקס+ניגוב')" />
+            <img :src="StarIcon" v-if="data.subscription?.includes('ווקס+ניגוב')" />
           </div>
         </template>
         <template #loading>
@@ -170,7 +170,7 @@ import Bucket from '@/assets/bucket.svg'
 import TableLoadingSkeleton from '@/pages/Home/components/TableLoadingSkeleton.vue'
 import { useElementBounding } from '@vueuse/core'
 import CarImage from '@/pages/Home/components/CarImage.vue'
-import Star from '@/assets/star.svg'
+import StarIcon from '@/assets/star.svg?url'
 
 const props = defineProps({
   stationWashes: {
