@@ -93,7 +93,7 @@
         <template #body="{ data }">
           <div class="flex items-center">
             <span>{{ data.subscription?.replace('ווקס+ניגוב', '') }}</span>
-            <img :src="StarIcon" v-if="data.subscription?.includes('ווקס+ניגוב')" />
+            <img :src="StarIcon" v-if="data.subscription?.includes('ווקס+ניגוב')" v-tooltip.top="$t('general.premium-subscription')" />
           </div>
         </template>
         <template #loading>
@@ -268,4 +268,6 @@ const preset = {
 <!-- add new colors to more states -->
 <!-- fix products -->
 <!-- fix photo -->
-<!-- add star to subscriptions -->
+
+<!-- לתקן מנוי שנכנס הרבה פעמים באותו היום -->
+ <!-- לתקן EMPTY STATE בפילטור -->

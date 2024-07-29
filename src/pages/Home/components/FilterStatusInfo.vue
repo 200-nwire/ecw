@@ -3,9 +3,9 @@
     <div
       v-for="(stat, index) in subscriptionStats"
       :key="index"
-      class="flex"
+      class="flex flex-1 min-w-[11.25rem] justify-between"
     >
-      <div class="flex-col py-5 px-7 gap-2 w-[11.25rem]">
+      <div class="flex-col py-5 px-7 gap-2">
         <div class="flex items-center gap-3">
           <span
             class="h-5 w-5 rounded-full"

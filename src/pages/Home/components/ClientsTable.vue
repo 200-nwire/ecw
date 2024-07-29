@@ -169,7 +169,7 @@
           <div class="flex flex-col gap-4">
             <div
               v-for="sub in data?.subscriptions ?? []"
-              class=""
+              class="overflow-ellipsis whitespace-nowrap overflow-hidden"
               :key="sub.id"
             >
               {{ sub.station?.name }}
@@ -193,7 +193,11 @@
               :key="sub.id"
             >
               <span>{{ sub?.plan?.description?.replace('ווקס+ניגוב', '') }}</span>
-              <img :src="StarIcon" v-if="sub?.plan?.description?.includes('ווקס+ניגוב')"/>
+              <img
+                :src="StarIcon"
+                v-if="sub?.plan?.description?.includes('ווקס+ניגוב')"
+                v-tooltip.top="$t('general.premium-subscription')"
+              />
             </div>
           </div>
         </template>
