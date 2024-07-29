@@ -28,6 +28,7 @@ import Row from 'primevue/row'
 import Skeleton from 'primevue/skeleton'
 import Image from 'primevue/image'
 import Sidebar from 'primevue/sidebar'
+import Tooltip from 'primevue/tooltip';
 
 import { client } from '@/services/GraphQlClient'
 import messages from '@intlify/unplugin-vue-i18n/messages'
@@ -72,6 +73,7 @@ app.component('Skeleton', Skeleton)
 app.component('Image', Image)
 app.component('Sidebar', Sidebar)
 app.component('InputGroup', InputGroup)
+app.directive('tooltip', Tooltip);
 app.use(PrimeVue, { unstyled: true, pt: Lara })
 
 app.use(pinia)

@@ -5,11 +5,12 @@ export default {
       'absolute',
       'shadow-md',
       'p-fadein',
+      'bg-transparent rounded-[6px]',
       // Spacing
       {
         'py-0 px-1':
           context?.right || context?.left || (!context?.right && !context?.left && !context?.top && !context?.bottom),
-        'py-1 px-0': context?.top || context?.bottom,
+        'p-0': context?.top || context?.bottom,
       },
     ],
   }),
@@ -43,6 +44,6 @@ export default {
     ],
   }),
   text: {
-    class: ['p-3', 'bg-surface-700', 'text-white', 'leading-none', 'rounded-md', 'whitespace-pre-line', 'break-words'],
+    class: ['px-5 py-2', 'bg-[#667085]', 'text-white', 'leading-none', 'rounded-[6px]', 'whitespace-pre-line', 'break-words'],
   },
 }
