@@ -1,17 +1,6 @@
 <template>
   <div class="flex flex-col flex-1 py-8 px-7">
-    <Button
-      :label="$t('stations.stations-sidebar.stations-stats')"
-      @click="() => {
-        view = 'stats'
-        router.push('/stations')
-      }
-        "
-      text
-      severity="neutral"
-      :selected="view === 'stats'"
-      class="!text-start !px-4 !mb-6 bg-primary-level-2"
-    />
+    <Menu :model="stationsStatsItems" />
     <Divider class="!my-0" />
     <div class="flex flex-col flex-1 py-2 my-4">
       <div class="flex justify-between items-center">
@@ -68,8 +57,11 @@ import { computed, onMounted, ref } from 'vue'
 import { Ellipsis } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import { filter } from 'lodash'
+import { useI18n } from 'vue-i18n'
 
-const view = defineModel<String>('stats')
+const { t } = useI18n()
+
+const view = defineModel<String>()
 
 const stationStore = useStationStore()
 const { getStations } = stationStore
@@ -77,16 +69,28 @@ const router = useRouter()
 
 const search = ref('')
 
+const currStation = computed(() => stationStore.currStation)
+
 const items = computed(() =>
   stationStore.isLoadingStations ?
-    (new Array(10)).fill({ label: '' }) : 
+    (new Array(10)).fill({ label: '' }) :
     filter(stationStore.stations, ({ name }) => name.toLowerCase().includes(search.value.toLowerCase()))?.map(station => ({
       label: station.name,
+      class: currStation.value?.id === station.id ? 'bg-primary-level-2 rounded-xxs' : '',
       command: () => {
-        view.value = 'station'
         router.push(`/stations?stationId=${station.id}`)
       },
     })),
+)
+
+const stationsStatsItems = computed(() =>
+    [{
+      label: t('stations.stations-sidebar.stations-stats'),
+      class: view.value === 'stats' ? 'bg-primary-level-2 rounded-xxs' : '',
+      command: () => {
+        router.push('/stations')
+      },
+    }],
 )
 
 onMounted(() => {
