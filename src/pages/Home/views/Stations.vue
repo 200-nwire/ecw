@@ -174,7 +174,6 @@ const tvURL = import.meta.env.VITE_WASH_TV_URL
 const stationId = computed(() => route.query.stationId as string)
 
 const view = ref<View>(stationId.value ? 'station' : 'stats')
-console.log('view.value :>> ', view.value);
 
 const { dateOptions } = useDate();
 const preDefinedRangeOption = computed(() => 
@@ -237,7 +236,6 @@ onMounted(() => {
 
 watch(stationId, () => {
   view.value = stationId.value ? 'station' : 'stats'
-  console.log('view.value :>> ', view.value);
   resetPreviousStationInfo()
   getStationInfo()
 });
